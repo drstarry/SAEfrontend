@@ -19,7 +19,7 @@
         <div class="panel-heading">
             <div class="panel-title">
                 <a href="#panel1" class="panel-toggle" data-toggle="collapse" data-parent="#accordion">
-                    From:  <span class="badge badge-important">{{len(sender)}}</span>
+                    From:  <span class="badge badge-important">{{s_sum}}</span>
                 </a>
             </div>
         </div>
@@ -33,7 +33,7 @@
         <div class="panel-heading">
             <div class="panel-title">
                 <a href="#panel2" class="panel-toggle" data-toggle="collapse" data-parent="#accordion">
-                    To: <span class="badge badge-important">{{len(recipients)}}
+                    To: <span class="badge badge-important">{{r_sum}}
                 </a>
             </div>
         </div>

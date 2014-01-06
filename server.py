@@ -250,19 +250,21 @@ def search():
         ]
     )
 
+	
 @route('/enron/mail/<messageid:int>')
 @view('mail')
 def showmail(messageid):
-    print "in"
     mail = client.mail_detail_search_by_id([messageid]).entity[0]
+	
     sender = client.detail_search_by_id(mail.related_entity[0].id).entity
-   
     recipients = client.detail_search_by_id(mail.related_entity[1].id).entity
     return {
         "subject": mail.title,
         "body": mail.description,
         "sender": ", ".join(["%s <%s>" % (s.title, s.url) for s in sender]),
-        "recipients": ", ".join(["%s <%s>" % (s.title, s.url) for s in recipients])
+		"s_sum":len(sender),
+        "recipients": ", ".join(["%s <%s>" % (s.title, s.url) for s in recipients]),
+		"r_sum":len(recipients)
     }
 
 @route('/static/<path:path>')
@@ -273,7 +275,7 @@ def static(path):
 if len(sys.argv) > 1:
     port = int(sys.argv[1])
 else:
-    port = 8088
+    port = 8088 
 
 print port
 run(server='auto', host='localhost', port=port, reloader=True, debug=True)

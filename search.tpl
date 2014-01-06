@@ -96,7 +96,7 @@
 		<a href="?q={{query}}&offset={{offset+count}}&count={{count}}">more</a>
 	</div>
 	<h4>{{get("results_title", "Results")}}</h4>
-	<ul class="ul ul.list-unstyled">
+	<ul class="list-unstyled">
 	%for item in results:
 		<li class="result-item row-fluid">
 			<div class="item-img span2">
@@ -138,7 +138,7 @@
 		<div class="extra-results">
 			<section>
 			<h4>{{extra_results['title']}}</h4>
-			<ul class="unstyled">
+			<ul class="list-unstyled">
 			%for item in extra_results['items']:
 				<li class="extra-item">
 				<div>
