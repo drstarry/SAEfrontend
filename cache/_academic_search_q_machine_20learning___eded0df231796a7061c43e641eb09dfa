@@ -1,0 +1,847 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="/static/bootstrap/css/bootstrap.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="/static/bootstrap/css/bootstrap-responsive.css" media="all" />
+    <script src="/static/jquery-2.0.1.min.js"></script>
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/d3.v3.min.js"></script>
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-inner">
+            <a class="brand" href="/">SAE</a>
+            <ul class="nav">
+                <li> <a href="/academic/search">Academic</a> </li>
+                <li> <a href="/patent/search">Patent</a> </li>
+                <li> <a href="/weibo/search">Weibo</a> </li>
+            </ul>
+        </div>
+    </div>
+    <div class="container">
+<style type="text/css">
+	.result-item {
+		padding: 4px 2px 4px 6px;
+		border-bottom: 1px dashed #f6f6f6;
+	}
+
+	.item-img {
+		max-width: 120px;
+		padding: 2px;
+		border: 1px solid #ddd;
+		border-radius: 4px;
+	}
+
+	.item-img:hover {
+		border-color: #0088cc;
+	}
+
+	.item-stats {
+		color: green;
+		font-size: 12px;
+	}
+
+	ul.item-stats > li {
+		margin-left: 0;
+		padding-left: 0;
+	}
+
+	.item-description {
+		color: grey;
+		margin: 0;
+	}
+
+	.item-topics > li {
+		padding-left: 0;
+		font-size: 11px;
+		border: solid 1px rgba(99, 99, 99, 0.18);
+	}
+
+	.extra-results {
+		line-height: 14px;
+	}
+
+	.extra-item {
+		padding: 4px 2px 4px 6px;
+		border-bottom: 1px dashed #f6f6f6;
+	}
+
+	.extra-item-title {
+		color: black;
+		font-size: 12px;
+	}
+
+	.extra-item-authors {
+		color: green;
+		font-size: 12px;
+	}
+
+	.extra-item-stats {
+		line-height: 14px;
+		height: 12px;
+		color: grey;
+	}
+
+</style>
+
+<form class="search form-search" method="get">
+	<fieldset>
+		<legend>Entity Search</legend>
+		<input type="text" class="search-query" name="q" placeholder="type in a topic, e.g. data mining" value="machine learning"/>
+		<button class="btn btn-primary" type="submit">Search</button>
+			<button class="btn btn-analysis">Topic Trend</button>
+	</fieldset>
+</form>
+
+	<p>Hot queries:
+	<span><a href="search?q=data mining">data mining</a></span>
+	<span><a href="search?q=machine learning">machine learning</a></span>
+
+<div class="row-fluid">
+	<div class="results span8">
+	<div class="results-summary pull-right">5000 results, displaying 0 - 15</div>
+	<h4>Experts</h4>
+	<ul class="unstyled">
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-987658.html">
+					<img src="http://www.sigevo.org/gec-summit-2009/images/internal/goldberg.jpg" alt="David E. Goldberg" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-987658.html">David E. Goldberg</a>
+						<span class="pull-right">[<a href="986616/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>50</i></b></li>
+					<li>citations: <b><i>68710</i></b></li>
+					<li>publications: <b><i>208</i></b></li>
+				</ul>
+				<p class='item-description'>Professor,Director, Illinois Genetic Algorithms Laboratory</p>
+				<ul class="item-topics inline">
+					<li>Genetic Algorithms</li>
+					<li>Genetic Programming</li>
+					<li>Distribution Algorithms</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-1004474.html">
+					<img src="http://www.lsa.umich.edu/psych/images/people/jholland.jpg" alt="John H. Holland" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-1004474.html">John H. Holland</a>
+						<span class="pull-right">[<a href="1003377/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>7</i></b></li>
+					<li>citations: <b><i>53536</i></b></li>
+					<li>publications: <b><i>9</i></b></li>
+				</ul>
+				<p class='item-description'>Professor, University of Michigan</p>
+				<ul class="item-topics inline">
+					<li>Case Study</li>
+					<li>Dynamic Environment</li>
+					<li>Hyperplane-Defined Function</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-987664.html">
+					<img src="http://pic.aminer.org/picture/images/no_photo.jpg" alt="David E. Goldberg" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-987664.html">David E. Goldberg</a>
+						<span class="pull-right">[<a href="986618/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>16</i></b></li>
+					<li>citations: <b><i>51337</i></b></li>
+					<li>publications: <b><i>23</i></b></li>
+				</ul>
+				<p class='item-description'>, </p>
+				<ul class="item-topics inline">
+					<li>Genetic Algorithms</li>
+					<li>Crowding Approach</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-1216951.html">
+					<img src="http://www.support-vector.net/includes/shared_content.php?file=nello.jpg" alt="Nello Cristianini" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-1216951.html">Nello Cristianini</a>
+						<span class="pull-right">[<a href="1215523/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>32</i></b></li>
+					<li>citations: <b><i>24612</i></b></li>
+					<li>publications: <b><i>85</i></b></li>
+				</ul>
+				<p class='item-description'>Professor, Engineering Mathematics and Computer Science
+University of Bristol</p>
+				<ul class="item-topics inline">
+					<li>Information Fusion</li>
+					<li>Intelligent Agent</li>
+					<li>Unstructured Data</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-259030.html">
+					<img src="http://pic1.aminer.org/picture/490/1225202075157.jpeg" alt="J. R. Quinlan" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-259030.html">J. R. Quinlan</a>
+						<span class="pull-right">[<a href="258843/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>32</i></b></li>
+					<li>citations: <b><i>43981</i></b></li>
+					<li>publications: <b><i>41</i></b></li>
+				</ul>
+				<p class='item-description'>, </p>
+				<ul class="item-topics inline">
+					<li>Data Mining</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-737377.html">
+					<img src="http://pic2.aminer.org/picture/02756/Thomas_Dietterich_1329817723568.jpg" alt="Thomas Dietterich" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-737377.html">Thomas Dietterich</a>
+						<span>[<a href="http://scholar.google.com/citations?user=09kJn28AAAAJ">google_scholar</a>]</span>
+						<span>[<a href="http://www.linkedin.com/pub/tom-dietterich/0/67/838">linkedin</a>]</span>
+						<span>[<a href="http://videolectures.net/thomas_dietterich">video_lecture</a>]</span>
+						<span class="pull-right">[<a href="736767/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>45</i></b></li>
+					<li>citations: <b><i>18121</i></b></li>
+					<li>publications: <b><i>148</i></b></li>
+				</ul>
+				<p class='item-description'>Professor and Director of Intelligent Systems, School of Electrical Engineering and Computer Science</p>
+				<ul class="item-topics inline">
+					<li>Right Folder</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-1351471.html">
+					<img src="http://pic1.aminer.org/picture/38/1225198255618.gif" alt="Pat Langley" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-1351471.html">Pat Langley</a>
+						<span class="pull-right">[<a href="1349858/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>41</i></b></li>
+					<li>citations: <b><i>10249</i></b></li>
+					<li>publications: <b><i>142</i></b></li>
+				</ul>
+				<p class='item-description'>Director, Institute for the Study of Learning and Expertise</p>
+				<ul class="item-topics inline">
+					<li>Integrated Systems</li>
+					<li>Inducing Spatio-Temporal Process Models</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-29900.html">
+					<img src="http://pic.aminer.org/picture/images/no_photo.jpg" alt="Guangbin Huang" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-29900.html">Guangbin Huang</a>
+						<span class="pull-right">[<a href="29887/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>25</i></b></li>
+					<li>citations: <b><i>2724</i></b></li>
+					<li>publications: <b><i>77</i></b></li>
+				</ul>
+				<p class='item-description'>, </p>
+				<ul class="item-topics inline">
+					<li>Support Vector Machine</li>
+					<li>Error Tolerance</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-643825.html">
+					<img src="http://pic1.aminer.org/picture/01074/Fabrizio_Sebastiani_1289387314734.jpg" alt="Fabrizio Sebastiani" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-643825.html">Fabrizio Sebastiani</a>
+						<span class="pull-right">[<a href="643307/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>25</i></b></li>
+					<li>citations: <b><i>12017</i></b></li>
+					<li>publications: <b><i>81</i></b></li>
+				</ul>
+				<p class='item-description'>senior research scientist, Istituto di Scienza e Tecnologia dell&#039;Informazione, Italy</p>
+				<ul class="item-topics inline">
+					<li>Information Extraction</li>
+					<li>Text Classification</li>
+					<li>Image Classification</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-125753.html">
+					<img src="http://pic1.aminer.org/picture/52/1225200357968.jpeg" alt="V. N. Vapnik" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-125753.html">V. N. Vapnik</a>
+						<span class="pull-right">[<a href="125706/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>41</i></b></li>
+					<li>citations: <b><i>33375</i></b></li>
+					<li>publications: <b><i>57</i></b></li>
+				</ul>
+				<p class='item-description'>Professor, Department of Computer Science, University of London</p>
+				<ul class="item-topics inline">
+					<li>Hidden Information</li>
+					<li>New Learning Paradigm</li>
+					<li>Privileged Information</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-127817.html">
+					<img src="http://www.cs.ucl.ac.uk/staff/J.Shawe-Taylor/images/J.Shawe-Taylor.jpg" alt="John Shawe-Taylor" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-127817.html">John Shawe-Taylor</a>
+						<span class="pull-right">[<a href="127761/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>41</i></b></li>
+					<li>citations: <b><i>25097</i></b></li>
+					<li>publications: <b><i>207</i></b></li>
+				</ul>
+				<p class='item-description'>Professor, Department of Computer Science
+University College London
+</p>
+				<ul class="item-topics inline">
+					<li>Special Issue</li>
+					<li>Knowledge Discovery</li>
+					<li>European Conference</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-15694.html">
+					<img src="http://pic1.aminer.org/picture/487/1225200744582.gif" alt="Michael L. Littman" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-15694.html">Michael L. Littman</a>
+						<span class="pull-right">[<a href="15681/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>53</i></b></li>
+					<li>citations: <b><i>21325</i></b></li>
+					<li>publications: <b><i>160</i></b></li>
+				</ul>
+				<p class='item-description'>Professor and Chair, Rutgers University 
+Department of Computer Science</p>
+				<ul class="item-topics inline">
+					<li>Machine Learning</li>
+					<li>Reinforcement Learning</li>
+					<li>Annual International Conference</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-163154.html">
+					<img src="http://people.csail.mit.edu/lpk/lpkLadder.jpg" alt="L. Kaelbling" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-163154.html">L. Kaelbling</a>
+						<span class="pull-right">[<a href="163068/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>41</i></b></li>
+					<li>citations: <b><i>16974</i></b></li>
+					<li>publications: <b><i>105</i></b></li>
+				</ul>
+				<p class='item-description'>Professor, Department of Electrical Engineering and Computer Science 
+Massachusetts Institute of Technology</p>
+				<ul class="item-topics inline">
+					<li>Real World</li>
+					<li>Motion Segmentation</li>
+					<li>Technical Perspective</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-942225.html">
+					<img src="http://pic1.aminer.org/picture/00381/Corinna_Cortes_1297509276053.jpg" alt="Corinna Cortes" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-942225.html">Corinna Cortes</a>
+						<span class="pull-right">[<a href="941343/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>27</i></b></li>
+					<li>citations: <b><i>12413</i></b></li>
+					<li>publications: <b><i>60</i></b></li>
+				</ul>
+				<p class='item-description'>Head, Google Research New York
+</p>
+				<ul class="item-topics inline">
+					<li>Stability Analysis</li>
+					<li>Generalization Bounds</li>
+					<li>Learning Bounds</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-704523.html">
+					<img src="http://pic1.aminer.org/picture/492/1225203311454.gif" alt="Thorsten Joachims" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-704523.html">Thorsten Joachims</a>
+						<span>[<a href="http://scholar.google.se/citations?user=5tk1PV8AAAAJ&amp;hl=en">google_scholar</a>]</span>
+						<span>[<a href="http://www.linkedin.com/profile/view?id=16138826&amp;authType=NAME_SEARCH&amp;authToken=fXdd&amp;locale=en_US&amp;srchid=2784050491375975917184&amp;srchindex=1&amp;srchtotal=9&amp;trk=vsrp_people_res_name&amp;trkInfo=VSRPsearchId%3A2784050491375975917184%2CVSRPtargetId%3A16138826%2CVSRPcmpt%3Aprimary">linkedin</a>]</span>
+						<span>[<a href="http://videolectures.net/thorsten_joachims">video_lecture</a>]</span>
+						<span class="pull-right">[<a href="703929/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>39</i></b></li>
+					<li>citations: <b><i>19388</i></b></li>
+					<li>publications: <b><i>99</i></b></li>
+				</ul>
+				<p class='item-description'>Associate Professor, Department of Computer Science 
+Cornell University</p>
+				<ul class="item-topics inline">
+					<li>International Conference</li>
+					<li>Machine Learning</li>
+					<li>Information Retrieval</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-344300.html">
+					<img src="http://pic2.aminer.org/picture/01620/Ivan_Bratko_1334980269459.jpeg" alt="Ivan Bratko" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-344300.html">Ivan Bratko</a>
+						<span class="pull-right">[<a href="344083/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>29</i></b></li>
+					<li>citations: <b><i>3403</i></b></li>
+					<li>publications: <b><i>119</i></b></li>
+				</ul>
+				<p class='item-description'>Professor, computer science at University of Ljubljana</p>
+				<ul class="item-topics inline">
+					<li>Machine Learning</li>
+					<li>Abstract Concepts</li>
+					<li>Deriving Concepts</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-221919.html">
+					<img src="http://pic1.aminer.org/picture/486/1225200496478.jpeg" alt="M. I. Jordan" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-221919.html">M. I. Jordan</a>
+						<span class="pull-right">[<a href="221802/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>79</i></b></li>
+					<li>citations: <b><i>49764</i></b></li>
+					<li>publications: <b><i>259</i></b></li>
+				</ul>
+				<p class='item-description'>Professor, Department of EECS
+Department of Statistics
+University of California, Berkeley</p>
+				<ul class="item-topics inline">
+					<li>Machine Learning</li>
+					<li>Bayesian Inference</li>
+					<li>Mining Patterns</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-269869.html">
+					<img src="http://pic1.aminer.org/picture/487/1225200725382.jpeg" alt="Raymond J. Mooney" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-269869.html">Raymond J. Mooney</a>
+						<span>[<a href="http://videolectures.net/raymond_j_mooney">video_lecture</a>]</span>
+						<span class="pull-right">[<a href="269680/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>56</i></b></li>
+					<li>citations: <b><i>13630</i></b></li>
+					<li>publications: <b><i>137</i></b></li>
+				</ul>
+				<p class='item-description'>Professor, Computer Sciences
+University of Texas at Austin
+</p>
+				<ul class="item-topics inline">
+					<li>Transfer Learning</li>
+					<li>Mixture Model</li>
+					<li>Lexical Semantics</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-71157.html">
+					<img src="http://pic1.aminer.org/picture/488/1225201020446.jpeg" alt="Tom M. Mitchell" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-71157.html">Tom M. Mitchell</a>
+						<span>[<a href="http://videolectures.net/tom_mitchell">video_lecture</a>]</span>
+						<span class="pull-right">[<a href="71130/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>41</i></b></li>
+					<li>citations: <b><i>15414</i></b></li>
+					<li>publications: <b><i>100</i></b></li>
+				</ul>
+				<p class='item-description'>Professor, Machine Learning Department
+School of Computer Science 
+Carnegie Mellon University</p>
+				<ul class="item-topics inline">
+					<li>Semantic Web</li>
+					<li>Information Extraction</li>
+					<li>Neural Representation</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-455083.html">
+					<img src="http://pic1.aminer.org/picture/487/1225200766924.jpeg" alt="A. W. Moore" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-455083.html">A. W. Moore</a>
+						<span class="pull-right">[<a href="454788/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>47</i></b></li>
+					<li>citations: <b><i>19188</i></b></li>
+					<li>publications: <b><i>139</i></b></li>
+				</ul>
+				<p class='item-description'>Professor, School of Computer Science
+Carnegie Mellon University</p>
+				<ul class="item-topics inline">
+					<li>Structural Changes</li>
+					<li>Internet Topology</li>
+					<li>Internet Backbone Traffic</li>
+				</ul>
+			</div>
+		</li>
+	</ul>
+	</div>
+	<div class="extra-results-pane span4">
+		<div class="extra-results">
+			<section>
+			<h4>Publications</h4>
+			<ul class="unstyled">
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-1273798.html">Interacting meaningfully with machine learning systems: Three experiments.</a>
+				</div>
+					<div class="extra-item-authors">Weng-Keen Wong, M. M. Burnett, V. Rajaram</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:42</div>
+					<div class="extra-item-year">2009</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-91401.html">Investigating statistical machine learning as a tool for software development.</a>
+				</div>
+					<div class="extra-item-authors">J. A. Landay, Beverly L. Harrison, Kayur Patel</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:20</div>
+					<div class="extra-item-year">2008</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-716846.html">Bilevel Optimization and Machine Learning.</a>
+				</div>
+					<div class="extra-item-authors">Kristin Bennett, Jing Hu, Gautam Kunapuli</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:5</div>
+					<div class="extra-item-year">2008</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-985317.html">The Interplay of Optimization and Machine Learning Research.</a>
+				</div>
+					<div class="extra-item-authors">Emilio Hernandez, Kristin Bennett</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:46</div>
+					<div class="extra-item-year">2006</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-16205.html">Examining Difficulties Software Developers Encounter in the Adoption of Statistical Machine Learning.</a>
+				</div>
+					<div class="extra-item-authors">J. A. Landay, Beverly L. Harrison, Kayur Patel</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:5</div>
+					<div class="extra-item-year">2008</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-329134.html">Multi-Machine Scheduling - A Multi-Agent Learning Approach.</a>
+				</div>
+					<div class="extra-item-authors">Gerhard Weis, Wilfried Brauer</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:44</div>
+					<div class="extra-item-year">1998</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-367765.html">Machine Learning and Software Engineering.</a>
+				</div>
+					<div class="extra-item-authors">Jeffrey J. P. Tsai, Du Zhang</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:53</div>
+					<div class="extra-item-year">2002</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-83806.html">Can machine learning be secure?</a>
+				</div>
+					<div class="extra-item-authors">J. D. Tygar, Russell Sears, Marco Barreno</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:109</div>
+					<div class="extra-item-year">2006</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-1254457.html">Theory-Practice Interplay in Machine Learning - Emerging Theoretical Challenges.</a>
+				</div>
+					<div class="extra-item-authors">Shai Ben-David</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-year">2009</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-1276623.html">Some single-machine and m-machine flowshop scheduling problems with learning considerations.</a>
+				</div>
+					<div class="extra-item-authors">Wen-Chiung Lee, Chin-Chia Wu</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:32</div>
+					<div class="extra-item-year">2009</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-900615.html">Boltzmann Machines with Identified States.</a>
+				</div>
+					<div class="extra-item-authors">Masaki Kobayashi</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-year">2008</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-1236854.html">From Machine Learning to Child Learning.</a>
+				</div>
+					<div class="extra-item-authors">Charles X. F. Ling</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-year">2009</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-900477.html">Interactive Learning of Spoken Words and Their Meanings Through an Audio-Visual Interface.</a>
+				</div>
+					<div class="extra-item-authors">Naoto Iwahashi</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:9</div>
+					<div class="extra-item-year">2008</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-266497.html">Application of Argument Based Machine Learning to Law.</a>
+				</div>
+					<div class="extra-item-authors">Trevor Bench-Capon, Ivan Bratko, Jure Zabkar</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:3</div>
+					<div class="extra-item-year">2005</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-1022082.html">Enclosing machine learning: concepts and algorithms.</a>
+				</div>
+					<div class="extra-item-authors">Yinghong Li, Yufei Li, Xunkai Wei</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:6</div>
+					<div class="extra-item-year">2008</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-1234123.html">Dropout prediction in e-learning courses through the combination of machine learning techniques.</a>
+				</div>
+					<div class="extra-item-authors">Vassilis Nikolopoulos, Ioannis Giannoukos, Ioanna Lykourentzou</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:17</div>
+					<div class="extra-item-year">2009</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-1129886.html">Learning Dominance Relations in Combinatorial Search Problems.</a>
+				</div>
+					<div class="extra-item-authors">Benjamin W. Wah, Chee Fen Yu</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-year">1988</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-1248258.html">An Evaluation of Machine Learning-Based Methods for Detection of Phishing Sites.</a>
+				</div>
+					<div class="extra-item-authors">Daisuke Miyamoto, Hiroaki Hazeyama, Youki Kadobayashi</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:10</div>
+					<div class="extra-item-year">2008</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-166408.html">Fighting Knowledge Acquisition Bottleneck with Argument Based Machine Learning.</a>
+				</div>
+					<div class="extra-item-authors">Matej Guid, Aleksander Sadikov, Jana Krivec</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:9</div>
+					<div class="extra-item-year">2008</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-1237585.html">A Framework for Machine Learning with Ambiguous Objects.</a>
+				</div>
+					<div class="extra-item-authors">Zhi-Hua Zhou</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-year">2009</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+			</ul>
+			</section>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$('.btn-analysis').click(function() {
+		var query = $('.search-query', $(this).parent()).val();
+		window.location = "topictrends?q=" + encodeURIComponent(query);
+		return false;
+	});
+	$(document).ready(function() {
+		$('.result-item .item-img img').one('error', function() {
+			$(this).attr('src', 'http://static02.linkedin.com/scds/common/u/img/icon/icon_no_company_logo_100x60.png');
+		});
+	});
+</script>
+
+    </div>
+
+</body>
+</html>

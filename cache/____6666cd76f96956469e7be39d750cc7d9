@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="/static/bootstrap/css/bootstrap.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="/static/bootstrap/css/bootstrap-responsive.css" media="all" />
+    <script src="/static/jquery-2.0.1.min.js"></script>
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/d3.v3.min.js"></script>
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-inner">
+            <a class="brand" href="/">SAE</a>
+            <ul class="nav">
+                <li> <a href="/academic/search">Academic</a> </li>
+                <li> <a href="/patent/search">Patent</a> </li>
+                <li> <a href="/weibo/search">Weibo</a> </li>
+            </ul>
+        </div>
+    </div>
+    <div class="container">
+<style type="text/css">
+	form.form-inline {
+		display: inline-block;
+	}
+</style>
+
+<p>Here comes an introduction to SAE.
+
+<div>Academic:
+<span><a href="academic/search?q=data%20mining">data mining</a></span>
+<span><a href="academic/search?q=machine%20learning">machine learning</a></span>
+<form class="form-inline" action="academic/search">
+<input name="q" />
+<button type="submit">search</button>
+</form>
+</div>
+
+<div>Patent:
+<span><a href="patent/search?q=search">search</a></span>
+<span><a href="patent/search?q=mobile%20phone">mobile phone</a></span>
+<form class="form-inline" action="patent/search">
+<input name="q" />
+<button type="submit">search</button>
+</form>
+</div>
+
+<div>Weibo:
+<span><a href="weibo/search?q=社会网络">社会网络(social network)</a></span>
+<span><a href="weibo/search?q=地震">地震(earthquake)</a></span>
+<form class="form-inline" action="weibo/search">
+<input name="q" />
+<button type="submit">search</button>
+</form>
+</div>
+
+    </div>
+
+</body>
+</html>

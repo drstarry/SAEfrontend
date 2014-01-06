@@ -1,0 +1,131 @@
+<style type="text/css">
+    .topic-list li {
+        cursor: pointer;
+    }
+	.influence-pie {
+        font: 10px sans-serif;
+    }
+</style>
+<div class="row-fluid topic">
+    <div class="span4">
+        <ul class="topic-list nav nav-tabs nav-stacked">
+                <li data-index="0"><a>Data mining</a></li>
+                <li data-index="1"><a>Communication Complexity / Lower Bounds</a></li>
+                <li data-index="2"><a>Data Compression / Arithmetic Coding</a></li>
+                <li data-index="3"><a>Computer / Systems</a></li>
+                <li data-index="4"><a>Hypermedia Systems / Semantic web</a></li>
+        </ul>
+		
+            <div class="influence-pie" style="height: 250px; width: 250px;margin:0 auto"></div>
+       
+    </div>
+    <div class="span8">
+        <div class="topic-analysis index0" style="">
+			<div class="span4">
+            <p> Influenced by Jon M. Kleinberg:
+            <ul>
+                <li><a href="http://arnetminer.org/person/-/965877">D. Easley</a>  </li>
+                <li><a href="http://arnetminer.org/person/-/608772">Ofer Neiman</a>  </li>
+                <li><a href="http://arnetminer.org/person/-/703847">Aleksandrs Slivkins</a>  </li>
+                <li><a href="http://arnetminer.org/person/-/1095154">David Bindel</a>  </li>
+                <li><a href="http://arnetminer.org/person/-/799451">Kedar Dhamdhere</a>  </li>
+            </ul>
+            <p> Influencers:
+            <ul>
+                <li><a href="http://arnetminer.org/person/-/354153">Christos Faloutsos</a>  </li>
+                <li><a href="http://arnetminer.org/person/-/920001">Prabhakar Raghavan</a>  </li>
+                <li><a href="http://arnetminer.org/person/-/67599">D. P. Huttenlocher</a>  </li>
+                <li><a href="http://arnetminer.org/person/-/230951">B. E. Dom</a>  </li>
+                <li><a href="http://arnetminer.org/person/-/1352743">Eva Tardos</a>  </li>
+            </ul>
+			</div>
+			<div class="table span4"></div>
+        </div>
+        <div class="topic-analysis index1" style="display:none">
+			<div class="span4">
+            <p> Influenced by Jon M. Kleinberg:
+            <ul>
+                <li><a href="http://arnetminer.org/person/-/1095154">David Bindel</a>  </li>
+                <li><a href="http://arnetminer.org/person/-/388355">Lillian Lee</a>  </li>
+                <li><a href="http://arnetminer.org/person/-/433048">Eytan Bakshy</a>  </li>
+                <li><a href="http://arnetminer.org/person/-/1024906">David J. Crandall</a>  </li>
+                <li><a href="http://arnetminer.org/person/-/22704">Pedro Felzenszwalb</a>  </li>
+            </ul>
+            <p> Influencers:
+            <ul>
+                <li><a href="http://arnetminer.org/person/-/1352743">Eva Tardos</a>  </li>
+                <li><a href="http://arnetminer.org/person/-/920001">Prabhakar Raghavan</a>  </li>
+                <li><a href="http://arnetminer.org/person/-/850010">Y. Rabani</a>  </li>
+                <li><a href="http://arnetminer.org/person/-/113059">C. Papadimitriou</a>  </li>
+                <li><a href="http://arnetminer.org/person/-/277528">F. T. Leighton</a>  </li>
+            </ul>
+			</div>
+			<div class="table span4"></div>
+        </div>
+        <div class="topic-analysis index2" style="display:none">
+			<div class="span4">
+            <p> Influenced by Jon M. Kleinberg:
+            <ul>
+                <li><a href="http://arnetminer.org/person/-/608772">Ofer Neiman</a>  </li>
+                <li><a href="http://arnetminer.org/person/-/1291968">Paul Ginsparg</a>  </li>
+                <li><a href="http://arnetminer.org/person/-/433048">Eytan Bakshy</a>  </li>
+                <li><a href="http://arnetminer.org/person/-/804141">Duncan J. Watts</a>  </li>
+                <li><a href="http://arnetminer.org/person/-/226030">Ittai Abraham</a>  </li>
+            </ul>
+            <p> Influencers:
+            <ul>
+                <li><a href="http://arnetminer.org/person/-/1479033">Bonnie Berger</a>  </li>
+                <li><a href="http://arnetminer.org/person/-/713633">Klara Kedem</a>  </li>
+                <li><a href="http://arnetminer.org/person/-/67599">D. P. Huttenlocher</a>  </li>
+                <li><a href="http://arnetminer.org/person/-/920001">Prabhakar Raghavan</a>  </li>
+                <li><a href="http://arnetminer.org/person/-/1185143">David Gibson</a>  </li>
+            </ul>
+			</div>
+			<div class="table span4"></div>
+        </div>
+        <div class="topic-analysis index3" style="display:none">
+			<div class="span4">
+            <p> Influenced by Jon M. Kleinberg:
+            <ul>
+                <li><a href="http://arnetminer.org/person/-/703847">Aleksandrs Slivkins</a>  </li>
+                <li><a href="http://arnetminer.org/person/-/507646">Lars Backstrom</a>  </li>
+                <li><a href="http://arnetminer.org/person/-/46505">Siddharth Suri</a>  </li>
+                <li><a href="http://arnetminer.org/person/-/1024906">David J. Crandall</a>  </li>
+                <li><a href="http://arnetminer.org/person/-/883063">Sridhar Rajagopalan</a>  </li>
+            </ul>
+            <p> Influencers:
+            <ul>
+                <li><a href="http://arnetminer.org/person/-/67599">D. P. Huttenlocher</a>  </li>
+                <li><a href="http://arnetminer.org/person/-/920001">Prabhakar Raghavan</a>  </li>
+                <li><a href="http://arnetminer.org/person/-/1157938">Alok Aggarwal</a>  </li>
+                <li><a href="http://arnetminer.org/person/-/117385">R. Fagin</a>  </li>
+                <li><a href="http://arnetminer.org/person/-/963489">John E. Hopcroft</a>  </li>
+            </ul>
+			</div>
+			<div class="table span4"></div>
+        </div>
+        <div class="topic-analysis index4" style="display:none">
+			<div class="span4">
+            <p> Influenced by Jon M. Kleinberg:
+            <ul>
+                <li><a href="http://arnetminer.org/person/-/703847">Aleksandrs Slivkins</a>  </li>
+                <li><a href="http://arnetminer.org/person/-/388355">Lillian Lee</a>  </li>
+                <li><a href="http://arnetminer.org/person/-/14100357">Sigal Oren</a>  </li>
+                <li><a href="http://arnetminer.org/person/-/1291968">Paul Ginsparg</a>  </li>
+                <li><a href="http://arnetminer.org/person/-/368506">Anupam Gupta</a>  </li>
+            </ul>
+            <p> Influencers:
+            <ul>
+                <li><a href="http://arnetminer.org/person/-/1185143">David Gibson</a>  </li>
+                <li><a href="http://arnetminer.org/person/-/920001">Prabhakar Raghavan</a>  </li>
+                <li><a href="http://arnetminer.org/person/-/354153">Christos Faloutsos</a>  </li>
+                <li><a href="http://arnetminer.org/person/-/196045">Allan B. Borodin</a>  </li>
+                <li><a href="http://arnetminer.org/person/-/117385">R. Fagin</a>  </li>
+            </ul>
+			</div>
+			<div class="table span4"></div>
+        </div>
+    </div>
+</div>
+
+

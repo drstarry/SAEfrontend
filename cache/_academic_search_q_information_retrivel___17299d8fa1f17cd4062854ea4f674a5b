@@ -1,0 +1,849 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="/static/bootstrap/css/bootstrap.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="/static/bootstrap/css/bootstrap-responsive.css" media="all" />
+    <script src="/static/jquery-2.0.1.min.js"></script>
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/d3.v3.min.js"></script>
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-inner">
+            <a class="brand" href="/">SAE</a>
+            <ul class="nav">
+                <li> <a href="/academic/search">Academic</a> </li>
+                <li> <a href="/patent/search">Patent</a> </li>
+                <li> <a href="/weibo/search">Weibo</a> </li>
+            </ul>
+        </div>
+    </div>
+    <div class="container">
+<style type="text/css">
+	.result-item {
+		padding: 4px 2px 4px 6px;
+		border-bottom: 1px dashed #f6f6f6;
+	}
+
+	.item-img {
+		max-width: 120px;
+		padding: 2px;
+		border: 1px solid #ddd;
+		border-radius: 4px;
+	}
+
+	.item-img:hover {
+		border-color: #0088cc;
+	}
+
+	.item-stats {
+		color: green;
+		font-size: 12px;
+	}
+
+	ul.item-stats > li {
+		margin-left: 0;
+		padding-left: 0;
+	}
+
+	.item-description {
+		color: grey;
+		margin: 0;
+	}
+
+	.item-topics > li {
+		padding-left: 0;
+		font-size: 11px;
+		border: solid 1px rgba(99, 99, 99, 0.18);
+	}
+
+	.extra-results {
+		line-height: 14px;
+	}
+
+	.extra-item {
+		padding: 4px 2px 4px 6px;
+		border-bottom: 1px dashed #f6f6f6;
+	}
+
+	.extra-item-title {
+		color: black;
+		font-size: 12px;
+	}
+
+	.extra-item-authors {
+		color: green;
+		font-size: 12px;
+	}
+
+	.extra-item-stats {
+		line-height: 14px;
+		height: 12px;
+		color: grey;
+	}
+
+</style>
+
+<form class="search form-search" method="get">
+	<fieldset>
+		<legend>Entity Search</legend>
+		<input type="text" class="search-query" name="q" placeholder="type in a topic, e.g. data mining" value="information retrivel"/>
+		<button class="btn btn-primary" type="submit">Search</button>
+			<button class="btn btn-analysis">Topic Trend</button>
+	</fieldset>
+</form>
+
+	<p>Hot queries:
+	<span><a href="search?q=data mining">data mining</a></span>
+	<span><a href="search?q=machine learning">machine learning</a></span>
+
+<div class="row-fluid">
+	<div class="results span8">
+	<div class="results-summary pull-right">5000 results, displaying 0 - 15</div>
+	<h4>Experts</h4>
+	<ul class="unstyled">
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-753081.html">
+					<img src="http://pic1.aminer.org/picture/489/1225201867411.jpeg" alt="Stuart K. Card" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-753081.html">Stuart K. Card</a>
+						<span class="pull-right">[<a href="752445/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>38</i></b></li>
+					<li>citations: <b><i>14465</i></b></li>
+					<li>publications: <b><i>73</i></b></li>
+				</ul>
+				<p class='item-description'>manager, User Interface Research group at the Xerox Palo Alto Research Center (PARC)
+PARC</p>
+				<ul class="item-topics inline">
+					<li>Genealogical Data</li>
+					<li>Collaborative Entity-Based Intelligence Analysis</li>
+					<li>Workshop Chi</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-92851.html">
+					<img src="http://pic1.aminer.org/picture/493/1225203677078.jpeg" alt="P. Pirolli" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-92851.html">P. Pirolli</a>
+						<span class="pull-right">[<a href="92815/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>33</i></b></li>
+					<li>citations: <b><i>7414</i></b></li>
+					<li>publications: <b><i>66</i></b></li>
+				</ul>
+				<p class='item-description'>Research Fellow, Palo Alto Research Center (PARC)</p>
+				<ul class="item-topics inline">
+					<li>Social Annotation</li>
+					<li>Online Information</li>
+					<li>Social Search</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-162800.html">
+					<img src="http://pic1.aminer.org/picture/2/1225198098240.jpeg" alt="H. Garcia" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-162800.html">H. Garcia</a>
+						<span>[<a href="http://videolectures.net/hector_garcia_molina">video_lecture</a>]</span>
+						<span class="pull-right">[<a href="162714/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>114</i></b></li>
+					<li>citations: <b><i>53320</i></b></li>
+					<li>publications: <b><i>420</i></b></li>
+				</ul>
+				<p class='item-description'>Professor, Departments of Computer Science and Electrical Engineering,
+Stanford University
+</p>
+				<ul class="item-topics inline">
+					<li>Data Leakage Detection</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-1119043.html">
+					<img src="http://pic1.aminer.org/picture/486/1225200558406.jpeg" alt="Pierangela Samarati" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-1119043.html">Pierangela Samarati</a>
+						<span class="pull-right">[<a href="1117807/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>49</i></b></li>
+					<li>citations: <b><i>11305</i></b></li>
+					<li>publications: <b><i>217</i></b></li>
+				</ul>
+				<p class='item-description'>Professor, Universita degli Studi di Milano</p>
+				<ul class="item-topics inline">
+					<li>International Conference</li>
+					<li>International Workshop</li>
+					<li>Access Control</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-688708.html">
+					<img src="http://pic1.aminer.org/picture/487/1225200741756.jpeg" alt="Amanda Spink" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-688708.html">Amanda Spink</a>
+						<span class="pull-right">[<a href="688139/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>45</i></b></li>
+					<li>citations: <b><i>7678</i></b></li>
+					<li>publications: <b><i>129</i></b></li>
+				</ul>
+				<p class='item-description'>Professor, Department of Information Science at Loughborough University</p>
+				<ul class="item-topics inline">
+					<li>Web Search</li>
+					<li>Neural Network Analysis</li>
+					<li>Query Reformulation</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-134589.html">
+					<img src="http://pic1.aminer.org/picture/486/1225200410936.gif" alt="G. Wiederhold" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-134589.html">G. Wiederhold</a>
+						<span class="pull-right">[<a href="134515/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>53</i></b></li>
+					<li>citations: <b><i>14109</i></b></li>
+					<li>publications: <b><i>183</i></b></li>
+				</ul>
+				<p class='item-description'>Professor, Computer Science Department,
+Gates Computer Science Bldg
+Stanford University
+
+</p>
+				<ul class="item-topics inline">
+					<li>Intellectual Property</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-609080.html">
+					<img src="http://www.cc.gatech.edu/~john.stasko/stasko-pnnl.jpg" alt="J. Stasko" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-609080.html">J. Stasko</a>
+						<span class="pull-right">[<a href="608605/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>43</i></b></li>
+					<li>citations: <b><i>7844</i></b></li>
+					<li>publications: <b><i>139</i></b></li>
+				</ul>
+				<p class='item-description'>Professor &amp; Associate Chair, School of Interactive Computing
+College of Computing &amp; GVU Center
+Georgia Institute of Technology</p>
+				<ul class="item-topics inline">
+					<li>Information Visualization</li>
+					<li>Biomedical Literature</li>
+					<li>Mental Models</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-101930.html">
+					<img src="http://pic1.aminer.org/picture/493/1225203773366.jpeg" alt="A. C. Myers" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-101930.html">A. C. Myers</a>
+						<span class="pull-right">[<a href="101893/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>33</i></b></li>
+					<li>citations: <b><i>5762</i></b></li>
+					<li>publications: <b><i>63</i></b></li>
+				</ul>
+				<p class='item-description'>Associate Professor, Cornell University
+Department of Computer Science</p>
+				<ul class="item-topics inline">
+					<li>Automatic Partitioning</li>
+					<li>Timing Channel</li>
+					<li>Secure Web Application</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-331312.html">
+					<img src="http://pic1.aminer.org/picture/488/1225201141584.jpeg" alt="Susan T. Dumais" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-331312.html">Susan T. Dumais</a>
+						<span>[<a href="http://videolectures.net/susan_t_dumais">video_lecture</a>]</span>
+						<span class="pull-right">[<a href="331102/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>47</i></b></li>
+					<li>citations: <b><i>19557</i></b></li>
+					<li>publications: <b><i>126</i></b></li>
+				</ul>
+				<p class='item-description'>Principal Researcher, Adaptive Systems &amp; Interaction Group, Microsoft Research</p>
+				<ul class="item-topics inline">
+					<li>Information Retrieval</li>
+					<li>Search Engine</li>
+					<li>Web Search</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-184037.html">
+					<img src="http://pic1.aminer.org/picture/00964/Nicholas_J_Belkin_1289396078174.jpg" alt="Nicholas J. Belkin" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-184037.html">Nicholas J. Belkin</a>
+						<span class="pull-right">[<a href="183943/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>28</i></b></li>
+					<li>citations: <b><i>4447</i></b></li>
+					<li>publications: <b><i>96</i></b></li>
+				</ul>
+				<p class='item-description'>Professor II, School of Communication, Information and Library Studies, Rutgers University, USA</p>
+				<ul class="item-topics inline">
+					<li>User Interaction</li>
+					<li>Different Level</li>
+					<li>Information Search</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-901221.html">
+					<img src="http://pic1.aminer.org/picture/491/1225202690050.gif" alt="Jock D. Mackinlay" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-901221.html">Jock D. Mackinlay</a>
+						<span class="pull-right">[<a href="900418/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>33</i></b></li>
+					<li>citations: <b><i>11888</i></b></li>
+					<li>publications: <b><i>47</i></b></li>
+				</ul>
+				<p class='item-description'>, User Interface Research
+Information Sciences and Technologies Laboratory</p>
+				<ul class="item-topics inline">
+					<li>Visual Analysis</li>
+					<li>Show Me</li>
+					<li>Automatic Presentation</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-1427046.html">
+					<img src="http://pic.aminer.org/picture/images/no_photo.jpg" alt="Madhu C. Reddy" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-1427046.html">Madhu C. Reddy</a>
+						<span class="pull-right">[<a href="1425270/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>13</i></b></li>
+					<li>citations: <b><i>933</i></b></li>
+					<li>publications: <b><i>24</i></b></li>
+				</ul>
+				<p class='item-description'>, </p>
+				<ul class="item-topics inline">
+					<li>Communication Technology</li>
+					<li>Collaborative Information</li>
+					<li>Emergency Medical Service</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-131800.html">
+					<img src="http://db.ucsd.edu/people/yannis_files/image004.jpg" alt="Y. Papakonstantinou" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-131800.html">Y. Papakonstantinou</a>
+						<span class="pull-right">[<a href="131729/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>43</i></b></li>
+					<li>citations: <b><i>11162</i></b></li>
+					<li>publications: <b><i>83</i></b></li>
+				</ul>
+				<p class='item-description'>Professor, Computer Science and Engineering
+
+University of CaliforniaUniversity of California</p>
+				<ul class="item-topics inline">
+					<li>Xml Databases</li>
+					<li>Online Databases</li>
+					<li>Proximity Search</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-856261.html">
+					<img src="http://pic1.aminer.org/picture/486/1225200434435.jpeg" alt="Jennifer Widom" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-856261.html">Jennifer Widom</a>
+						<span class="pull-right">[<a href="855532/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>81</i></b></li>
+					<li>citations: <b><i>33171</i></b></li>
+					<li>publications: <b><i>189</i></b></li>
+				</ul>
+				<p class='item-description'>Professor of Stanford University, Depts. of Computer Science and EE
+Stanford University</p>
+				<ul class="item-topics inline">
+					<li>Uncertain Data</li>
+					<li>Generic Approach</li>
+					<li>Uncertain Databases</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-1316087.html">
+					<img src="http://pic1.aminer.org/picture/486/1225200431658.jpeg" alt="Bruce Croft" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-1316087.html">Bruce Croft</a>
+						<span>[<a href="http://videolectures.net/bruce_croft">video_lecture</a>]</span>
+						<span class="pull-right">[<a href="1314506/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>75</i></b></li>
+					<li>citations: <b><i>24068</i></b></li>
+					<li>publications: <b><i>261</i></b></li>
+				</ul>
+				<p class='item-description'>Distinguished University Professor, Department of Computer Science, University of Massachusetts Amherst, USA</p>
+				<ul class="item-topics inline">
+					<li>Information Retrieval</li>
+					<li>Query Reformulation</li>
+					<li>Query Term</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-285837.html">
+					<img src="http://research.microsoft.com/en-us/people/ggr/ggr.jpg" alt="G. G. Robertson" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-285837.html">G. G. Robertson</a>
+						<span class="pull-right">[<a href="285640/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>44</i></b></li>
+					<li>citations: <b><i>11736</i></b></li>
+					<li>publications: <b><i>91</i></b></li>
+				</ul>
+				<p class='item-description'>Principal Researcher, Microsoft Research 
+</p>
+				<ul class="item-topics inline">
+					<li>Information Visualization</li>
+					<li>Software Development Teams</li>
+					<li>Non-Linear Constraints</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-9295.html">
+					<img src="http://pic1.aminer.org/picture/486/1225200443886.jpeg" alt="Amit Sheth" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-9295.html">Amit Sheth</a>
+						<span class="pull-right">[<a href="9290/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>68</i></b></li>
+					<li>citations: <b><i>22388</i></b></li>
+					<li>publications: <b><i>291</i></b></li>
+				</ul>
+				<p class='item-description'>Professor, Computer Science &amp; Engineering, Wright State University</p>
+				<ul class="item-topics inline">
+					<li>Social Networks</li>
+					<li>Cloud Computing</li>
+					<li>Social Computing</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-477259.html">
+					<img src="http://pic1.aminer.org/picture/486/1225200538863.jpeg" alt="C. A. Knoblock" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-477259.html">C. A. Knoblock</a>
+						<span>[<a href="http://videolectures.net/craig_knoblock">video_lecture</a>]</span>
+						<span class="pull-right">[<a href="476957/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>49</i></b></li>
+					<li>citations: <b><i>9435</i></b></li>
+					<li>publications: <b><i>181</i></b></li>
+				</ul>
+				<p class='item-description'>Director and Research Professor, Information Sciences Institute
+Department of Computer Science
+University of Southern California</p>
+				<ul class="item-topics inline">
+					<li>Linked Data</li>
+					<li>Data Sources</li>
+					<li>Web Sources</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-1251876.html">
+					<img src="http://www.rhsmith.umd.edu/faculty/mloeb/images/Loeb_Martin.jpg" alt="Martin Loeb" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-1251876.html">Martin Loeb</a>
+						<span class="pull-right">[<a href="1250395/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>10</i></b></li>
+					<li>citations: <b><i>1759</i></b></li>
+					<li>publications: <b><i>12</i></b></li>
+				</ul>
+				<p class='item-description'>professor, The University of Maryland</p>
+				<ul class="item-topics inline">
+					<li>Information Security</li>
+					<li>Risk Management</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-323484.html">
+					<img src="http://www.rhsmith.umd.edu/faculty/lgordon/images/LAG%20Homepage.JPG" alt="Lawrence A. Gordon" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-323484.html">Lawrence A. Gordon</a>
+						<span class="pull-right">[<a href="323275/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>10</i></b></li>
+					<li>citations: <b><i>1759</i></b></li>
+					<li>publications: <b><i>12</i></b></li>
+				</ul>
+				<p class='item-description'>Professor, University of Maryland</p>
+				<ul class="item-topics inline">
+					<li>Information Security</li>
+					<li>Risk Management</li>
+				</ul>
+			</div>
+		</li>
+	</ul>
+	</div>
+	<div class="extra-results-pane span4">
+		<div class="extra-results">
+			<section>
+			<h4>Publications</h4>
+			<ul class="unstyled">
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-1262582.html">Information: The Algorithmic Paradigm.</a>
+				</div>
+					<div class="extra-item-authors">C. Calude</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:1</div>
+					<div class="extra-item-year">2009</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-1141808.html">Quality-driven information filtering using the WIQA policy framework.</a>
+				</div>
+					<div class="extra-item-authors">Richard Cyganiak, Christian Bizer</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:67</div>
+					<div class="extra-item-year">2009</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-1277153.html">Situating logic and information in information science.</a>
+				</div>
+					<div class="extra-item-authors">Murat Karamuftuoglu</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-year">2009</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-1232541.html">Working with information: information management and culture in a professional services organization.</a>
+				</div>
+					<div class="extra-item-authors">Scott Paquette, Colin Furness, Chun Wei Choo</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:31</div>
+					<div class="extra-item-year">2006</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-918333.html">An information-theoretic approach to feature extraction in competitive learning.</a>
+				</div>
+					<div class="extra-item-authors">Ryotaro Kamimura</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:2</div>
+					<div class="extra-item-year">2009</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-96733.html">A characteristic based information evaluation model.</a>
+				</div>
+					<div class="extra-item-authors">Mansur J. Darlington, S. J. Culley, Llewellyn C. M. Tang</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:4</div>
+					<div class="extra-item-year">2008</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-1111937.html">An Information Service for Grid Virtual Organization: Architecture, Implementation and Evaluation.</a>
+				</div>
+					<div class="extra-item-authors">Terence Hung, Wentong Cai, Wei Jie</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:7</div>
+					<div class="extra-item-year">2005</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-520500.html">Information security is information risk management.</a>
+				</div>
+					<div class="extra-item-authors">E. McDermott, Bob Blakley</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:89</div>
+					<div class="extra-item-year">2001</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-245389.html">Stimulating Thinking in Group Decision Making.</a>
+				</div>
+					<div class="extra-item-authors">Kelly McNamara Hilmer, Alan Dennis</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:18</div>
+					<div class="extra-item-year">2000</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-957268.html">Information interaction: Providing a framework for information architecture.</a>
+				</div>
+					<div class="extra-item-authors">Elaine G. Toms</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:66</div>
+					<div class="extra-item-year">2002</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-176807.html">Scalable OLAP and mining of information networks.</a>
+				</div>
+					<div class="extra-item-authors">Philip S. Yu, Xifeng Yan, Jiawei Han</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:3</div>
+					<div class="extra-item-year">2009</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-237212.html">Towards an optimal resolution to information overload: an infomediary approach.</a>
+				</div>
+					<div class="extra-item-authors">Jinwon Ho, Rong Tang</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:53</div>
+					<div class="extra-item-year">2001</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-82810.html">Architecture Model for Information Service in Large Scale Grid Environments.</a>
+				</div>
+					<div class="extra-item-authors">Stephen J. Turner, Terence Hung, Wentong Cai</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:12</div>
+					<div class="extra-item-year">2006</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-695729.html">Self-Organizing Information Matching in InformANTS.</a>
+				</div>
+					<div class="extra-item-authors">H. Van Dyke Parunak, Rainer Hilscher, Theodore C. Belding</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:3</div>
+					<div class="extra-item-year">2007</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-659848.html">Enabling Personal Perspectives on Heterogeneous Information Spaces.</a>
+				</div>
+					<div class="extra-item-authors">M. Lacher, Georg Groh</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:2</div>
+					<div class="extra-item-year">2001</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-957281.html">Toward wellness: Women seeking health information.</a>
+				</div>
+					<div class="extra-item-authors">J. Drew Procaccino, D. Warner</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-year">2004</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-857419.html">Accessing information sharing and information quality in supply chain management.</a>
+				</div>
+					<div class="extra-item-authors">Suhong Li, Binshan Lin</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:188</div>
+					<div class="extra-item-year">2006</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-1248403.html">Feature Detection by Structural Enhanced Information.</a>
+				</div>
+					<div class="extra-item-authors">Ryotaro Kamimura</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-year">2008</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-532867.html">WGMDS: A WSRF-Compliant Information Service on Wireless Grids.</a>
+				</div>
+					<div class="extra-item-authors">Ming Li, Chuanshan Gao, Jianghu Yang</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:4</div>
+					<div class="extra-item-year">2005</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-754895.html">Constructing Information Bases Using Associative Structures.</a>
+				</div>
+					<div class="extra-item-authors">Kazuto Koujitani, Toyoaki Nishida, Harumi Maeda</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:1</div>
+					<div class="extra-item-year">1999</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+			</ul>
+			</section>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$('.btn-analysis').click(function() {
+		var query = $('.search-query', $(this).parent()).val();
+		window.location = "topictrends?q=" + encodeURIComponent(query);
+		return false;
+	});
+	$(document).ready(function() {
+		$('.result-item .item-img img').one('error', function() {
+			$(this).attr('src', 'http://static02.linkedin.com/scds/common/u/img/icon/icon_no_company_logo_100x60.png');
+		});
+	});
+</script>
+
+    </div>
+
+</body>
+</html>

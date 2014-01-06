@@ -1,0 +1,853 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="/static/bootstrap/css/bootstrap.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="/static/bootstrap/css/bootstrap-responsive.css" media="all" />
+    <script src="/static/jquery-2.0.1.min.js"></script>
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/d3.v3.min.js"></script>
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-inner">
+            <a class="brand" href="/">SAE</a>
+            <ul class="nav">
+                <li> <a href="/academic/search">Academic</a> </li>
+                <li> <a href="/patent/search">Patent</a> </li>
+                <li> <a href="/weibo/search">Weibo</a> </li>
+            </ul>
+        </div>
+    </div>
+    <div class="container">
+<style type="text/css">
+	.result-item {
+		padding: 4px 2px 4px 6px;
+		border-bottom: 1px dashed #f6f6f6;
+	}
+
+	.item-img {
+		max-width: 120px;
+		padding: 2px;
+		border: 1px solid #ddd;
+		border-radius: 4px;
+	}
+
+	.item-img:hover {
+		border-color: #0088cc;
+	}
+
+	.item-stats {
+		color: green;
+		font-size: 12px;
+	}
+
+	ul.item-stats > li {
+		margin-left: 0;
+		padding-left: 0;
+	}
+
+	.item-description {
+		color: grey;
+		margin: 0;
+	}
+
+	.item-topics > li {
+		padding-left: 0;
+		font-size: 11px;
+		border: solid 1px rgba(99, 99, 99, 0.18);
+	}
+
+	.extra-results {
+		line-height: 14px;
+	}
+
+	.extra-item {
+		padding: 4px 2px 4px 6px;
+		border-bottom: 1px dashed #f6f6f6;
+	}
+
+	.extra-item-title {
+		color: black;
+		font-size: 12px;
+	}
+
+	.extra-item-authors {
+		color: green;
+		font-size: 12px;
+	}
+
+	.extra-item-stats {
+		line-height: 14px;
+		height: 12px;
+		color: grey;
+	}
+
+</style>
+
+<form class="search form-search" method="get">
+	<fieldset>
+		<legend>Entity Search</legend>
+		<input type="text" class="search-query" name="q" placeholder="type in a topic, e.g. data mining" value="data mining"/>
+		<button class="btn btn-primary" type="submit">Search</button>
+			<button class="btn btn-analysis">Topic Trend</button>
+	</fieldset>
+</form>
+
+	<p>Hot queries:
+	<span><a href="search?q=data mining">data mining</a></span>
+	<span><a href="search?q=machine learning">machine learning</a></span>
+
+<div class="row-fluid">
+	<div class="results span8">
+	<div class="results-summary pull-right">5000 results, displaying 0 - 15</div>
+	<h4>Experts</h4>
+	<ul class="unstyled">
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-745329.html">
+					<img src="http://pic1.aminer.org/picture/02927/Jiawei_Han_1330682737987.jpg" alt="Jiawei Han" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-745329.html">Jiawei Han</a>
+						<span>[<a href="http://scholar.google.com/citations?user=Kv9AbjMAAAAJ&amp;hl=en">google_scholar</a>]</span>
+						<span>[<a href="http://www.linkedin.com/pub/jiawei-han/8/679/88a">linkedin</a>]</span>
+						<span>[<a href="http://videolectures.net/jiawei_han">video_lecture</a>]</span>
+						<span class="pull-right">[<a href="744714/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>103</i></b></li>
+					<li>citations: <b><i>65973</i></b></li>
+					<li>publications: <b><i>600</i></b></li>
+				</ul>
+				<p class='item-description'>Professor, Department of Computer Science, University of Illinois at Urbana-Champaign</p>
+				<ul class="item-topics inline">
+					<li>Data Mining</li>
+					<li>Data Streams</li>
+					<li>Efficient Mining</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-265966.html">
+					<img src="http://pic1.aminer.org/picture/00203/Philip_S_Yu_1289395474146.jpg" alt="Philip S. Yu" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-265966.html">Philip S. Yu</a>
+						<span>[<a href="http://scholar.google.se/citations?user=D0lL1r0AAAAJ&amp;hl=en">google_scholar</a>]</span>
+						<span>[<a href="http://videolectures.net/philip_s_yu/">video_lecture</a>]</span>
+						<span class="pull-right">[<a href="265777/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>93</i></b></li>
+					<li>citations: <b><i>37339</i></b></li>
+					<li>publications: <b><i>731</i></b></li>
+				</ul>
+				<p class='item-description'>Professor and Wexler Chair in Information Technology, Department of Computer Science, University of Illinouis Chicago</p>
+				<ul class="item-topics inline">
+					<li>System S.</li>
+					<li>High Data Rate Stream</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-1358732.html">
+					<img src="http://pic1.aminer.org/picture/01121/Jian_Pei_1307377712369.png" alt="Jian Pei" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-1358732.html">Jian Pei</a>
+						<span>[<a href="http://www.linkedin.com/pub/jian-pei/9/a16/69">linkedin</a>]</span>
+						<span>[<a href="http://videolectures.net/jian_pei">video_lecture</a>]</span>
+						<span class="pull-right">[<a href="1357105/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>51</i></b></li>
+					<li>citations: <b><i>16938</i></b></li>
+					<li>publications: <b><i>229</i></b></li>
+				</ul>
+				<p class='item-description'>Professor, School of Computing Science,
+Simon Fraser University</p>
+				<ul class="item-topics inline">
+					<li>Data Mining</li>
+					<li>Data Stream</li>
+					<li>Search Engine</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-157717.html">
+					<img src="http://pic1.aminer.org/picture/00392/Usama_M_Fayyad_1296829197591.jpg" alt="Usama M. Fayyad" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-157717.html">Usama M. Fayyad</a>
+						<span>[<a href="http://videolectures.net/usama_fayyad">video_lecture</a>]</span>
+						<span class="pull-right">[<a href="157633/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>39</i></b></li>
+					<li>citations: <b><i>19379</i></b></li>
+					<li>publications: <b><i>75</i></b></li>
+				</ul>
+				<p class='item-description'>Founder &amp; CEO, ChoozOn Corporation</p>
+				<ul class="item-topics inline">
+					<li>New Sciences</li>
+					<li>New Science</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-1378539.html">
+					<img src="http://rakesh.agrawal-family.com/images/rakesh.jpg" alt="Rakesh Agrawal" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-1378539.html">Rakesh Agrawal</a>
+						<span>[<a href="http://videolectures.net/rakesh_agrawal">video_lecture</a>]</span>
+						<span class="pull-right">[<a href="1376891/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>79</i></b></li>
+					<li>citations: <b><i>53650</i></b></li>
+					<li>publications: <b><i>181</i></b></li>
+				</ul>
+				<p class='item-description'>Microsoft Technical Fellow, Microsoft Search Labs, USA</p>
+				<ul class="item-topics inline">
+					<li>Digital World</li>
+					<li>Training Data</li>
+					<li>Database Research</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-36958.html">
+					<img src="http://pic0.aminer.org/picture/02220/Charu_C_Aggarwal_1352372489947.jpg" alt="Charu C. Aggarwal" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-36958.html">Charu C. Aggarwal</a>
+						<span>[<a href="http://scholar.google.se/citations?user=x_wsduUAAAAJ&amp;hl=en">google_scholar</a>]</span>
+						<span>[<a href="http://www.linkedin.com/pub/charu-aggarwal/0/510/a59">linkedin</a>]</span>
+						<span>[<a href="http://videolectures.net/charu_aggarwal">video_lecture</a>]</span>
+						<span class="pull-right">[<a href="36941/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>49</i></b></li>
+					<li>citations: <b><i>13176</i></b></li>
+					<li>publications: <b><i>227</i></b></li>
+				</ul>
+				<p class='item-description'>Research Scientist, IBM T. J. Watson Research Center</p>
+				<ul class="item-topics inline">
+					<li>Uncertain Data</li>
+					<li>Concept-Drifting Data Streams</li>
+					<li>Graph Streams</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-498336.html">
+					<img src="http://pic1.aminer.org/picture/489/1225201768888.jpeg" alt="G. Piatetsky-Shapiro" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-498336.html">G. Piatetsky-Shapiro</a>
+						<span class="pull-right">[<a href="498029/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>25</i></b></li>
+					<li>citations: <b><i>17156</i></b></li>
+					<li>publications: <b><i>52</i></b></li>
+				</ul>
+				<p class='item-description'>President, KDnuggets</p>
+				<ul class="item-topics inline">
+					<li>Data Mining</li>
+					<li>Knowledge Discovery</li>
+					<li>Jon Kleinberg</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-218377.html">
+					<img src="http://arnetminer.org/pictures/picture/01330/Padhraic_Smyth_1319467840735.png" alt="Padhraic Smyth" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-218377.html">Padhraic Smyth</a>
+						<span class="pull-right">[<a href="218260/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>47</i></b></li>
+					<li>citations: <b><i>18612</i></b></li>
+					<li>publications: <b><i>141</i></b></li>
+				</ul>
+				<p class='item-description'>Professor and Director, School of Information and Computer Sciences, Center for Machine Learning and Intelligent Systems, University of California, Irvine</p>
+				<ul class="item-topics inline">
+					<li>Technical Perspective</li>
+					<li>Topic Models</li>
+					<li>Text Corpus</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-63202.html">
+					<img src="http://pic1.aminer.org/picture/01770/Mohammed_Javeed_Zaki_1297509299161.jpeg" alt="Mohammed Javeed Zaki" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-63202.html">Mohammed Javeed Zaki</a>
+						<span>[<a href="http://www.linkedin.com/profile/view?id=1208122&amp;authType=NAME_SEARCH&amp;authToken=Tmbo&amp;locale=en_US&amp;srchid=2784050491375974132058&amp;srchindex=1&amp;srchtotal=1&amp;trk=vsrp_people_res_name&amp;trkInfo=VSRPsearchId%3A2784050491375974132058%2CVSRPtargetId%3A1208122%2CVSRPcmpt%3Aprimary">linkedin</a>]</span>
+						<span>[<a href="http://videolectures.net/mohammed_j_zaki/">video_lecture</a>]</span>
+						<span class="pull-right">[<a href="63179/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>47</i></b></li>
+					<li>citations: <b><i>10806</i></b></li>
+					<li>publications: <b><i>191</i></b></li>
+				</ul>
+				<p class='item-description'>Professor, Department of Computer Science, Rensselaer Polytechnic Institute
+</p>
+				<ul class="item-topics inline">
+					<li>Data Mining</li>
+					<li>Knowledge Discovery</li>
+					<li>Pattern Mining</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-827680.html">
+					<img src="http://pic1.aminer.org/picture/42/1225199120008.jpeg" alt="Johannes Gehrke" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-827680.html">Johannes Gehrke</a>
+						<span class="pull-right">[<a href="826969/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>57</i></b></li>
+					<li>citations: <b><i>23171</i></b></li>
+					<li>publications: <b><i>183</i></b></li>
+				</ul>
+				<p class='item-description'>Professor
+, Department of Computer Sciences, Cornell University
+</p>
+				<ul class="item-topics inline">
+					<li>Computer Games</li>
+					<li>Declarative Languages</li>
+					<li>Differential Privacy</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-1372275.html">
+					<img src="http://pic1.aminer.org/picture/489/1225201395222.jpeg" alt="Chris Clifton" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-1372275.html">Chris Clifton</a>
+						<span>[<a href="http://www.cs.purdue.edu/people/faculty/clifton/">linkedin</a>]</span>
+						<span class="pull-right">[<a href="1370642/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>33</i></b></li>
+					<li>citations: <b><i>5635</i></b></li>
+					<li>publications: <b><i>74</i></b></li>
+				</ul>
+				<p class='item-description'>Associate Professor, Purdue University</p>
+				<ul class="item-topics inline">
+					<li>Life Cycle</li>
+					<li>Assured Information</li>
+					<li>Providing Privacy</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-656430.html">
+					<img src="http://pic1.aminer.org/picture/01496/Osmar_R_Zaiane_1299153872700.png" alt="Osmar Zaiane" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-656430.html">Osmar Zaiane</a>
+						<span class="pull-right">[<a href="655903/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>35</i></b></li>
+					<li>citations: <b><i>4619</i></b></li>
+					<li>publications: <b><i>143</i></b></li>
+				</ul>
+				<p class='item-description'>Professor, Department of Computing Science
+University of Alberta</p>
+				<ul class="item-topics inline">
+					<li>Social Networks</li>
+					<li>Sequential Pattern Mining</li>
+					<li>Detecting Communities</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-428674.html">
+					<img src="http://pic1.aminer.org/picture/01502/Chengqi_Zhang_1300686725417.png" alt="Chengqi Zhang" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-428674.html">Chengqi Zhang</a>
+						<span class="pull-right">[<a href="428402/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>27</i></b></li>
+					<li>citations: <b><i>3799</i></b></li>
+					<li>publications: <b><i>238</i></b></li>
+				</ul>
+				<p class='item-description'>Professor, Centre for Quantum Computation and Intelligent Systems,
+University of Technology, Sydney</p>
+				<ul class="item-topics inline">
+					<li>Data Mining</li>
+					<li>Data Streams</li>
+					<li>Ieee International Conference</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-269921.html">
+					<img src="http://pic1.aminer.org/picture/489/1225201564520.jpeg" alt="Hillol Kargupta" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-269921.html">Hillol Kargupta</a>
+						<span>[<a href="http://videolectures.net/hillol_kargupta">video_lecture</a>]</span>
+						<span class="pull-right">[<a href="269732/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>30</i></b></li>
+					<li>citations: <b><i>3483</i></b></li>
+					<li>publications: <b><i>96</i></b></li>
+				</ul>
+				<p class='item-description'>Associate Professor, Department of Computer Science and Electrical Engineering
+ University of Maryland Baltimore County</p>
+				<ul class="item-topics inline">
+					<li>Data Mining</li>
+					<li>Ieee International Conference</li>
+					<li>Change Detection</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-43908.html">
+					<img src="http://pic1.aminer.org/picture/487/1225200776919.jpeg" alt="Xindong Wu" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-43908.html">Xindong Wu</a>
+						<span>[<a href="http://www.linkedin.com/profile/view?id=32544037&amp;authType=NAME_SEARCH&amp;authToken=-XPz&amp;locale=en_US&amp;srchid=2784050491375976249938&amp;srchindex=1&amp;srchtotal=4&amp;trk=vsrp_people_res_name&amp;trkInfo=VSRPsearchId%3A2784050491375976249938%2CVSRPtargetId%3A32544037%2CVSRPcmpt%3Aprimary">linkedin</a>]</span>
+						<span class="pull-right">[<a href="43889/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>35</i></b></li>
+					<li>citations: <b><i>5172</i></b></li>
+					<li>publications: <b><i>258</i></b></li>
+				</ul>
+				<p class='item-description'>Professor, Department of Computer Science, University of Vermont</p>
+				<ul class="item-topics inline">
+					<li>Intersection Type</li>
+					<li>Static Typing</li>
+					<li>Robust Ensemble</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-6987.html">
+					<img src="http://pic1.aminer.org/picture/01872/Ming_Syan_Chen_1289386598381.jpg" alt="Ming-Syan Chen" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-6987.html">Ming-Syan Chen</a>
+						<span class="pull-right">[<a href="6986/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>43</i></b></li>
+					<li>citations: <b><i>10718</i></b></li>
+					<li>publications: <b><i>291</i></b></li>
+				</ul>
+				<p class='item-description'>Professor , National Taiwan University</p>
+				<ul class="item-topics inline">
+					<li>Data Compression</li>
+					<li>Exploring Application-Level Semantics</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-914446.html">
+					<img src="http://pic.aminer.org/picture/images/no_photo.jpg" alt="Micheline Kamber" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-914446.html">Micheline Kamber</a>
+						<span class="pull-right">[<a href="913630/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>6</i></b></li>
+					<li>citations: <b><i>16584</i></b></li>
+					<li>publications: <b><i>7</i></b></li>
+				</ul>
+				<p class='item-description'>, </p>
+				<ul class="item-topics inline">
+					<li>Data Mining</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-196194.html">
+					<img src="http://pic1.aminer.org/picture/00016/Eamonn_J_Keogh_1297510170704.jpg" alt="Eamonn J. Keogh" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-196194.html">Eamonn J. Keogh</a>
+						<span class="pull-right">[<a href="196090/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>48</i></b></li>
+					<li>citations: <b><i>12777</i></b></li>
+					<li>publications: <b><i>161</i></b></li>
+				</ul>
+				<p class='item-description'>Professor, Computer Science &amp; Engineering Department, University of California - Riverside</p>
+				<ul class="item-topics inline">
+					<li>Simple Rectilinear Polygon</li>
+					<li>Rectilinear Link Radius</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-551990.html">
+					<img src="http://pic1.aminer.org/picture/43/1225199267972.jpeg" alt="Vipin Kumar" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-551990.html">Vipin Kumar</a>
+						<span class="pull-right">[<a href="551631/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>65</i></b></li>
+					<li>citations: <b><i>22142</i></b></li>
+					<li>publications: <b><i>244</i></b></li>
+				</ul>
+				<p class='item-description'>Professor, University of Minnesota</p>
+				<ul class="item-topics inline">
+					<li>Data Mining</li>
+					<li>Anomaly Detection</li>
+					<li>Automated Detection</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-637822.html">
+					<img src="http://pic1.aminer.org/picture/486/1225200455507.jpeg" alt="H. Mannila" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-637822.html">H. Mannila</a>
+						<span>[<a href="http://videolectures.net/heikki_mannila">video_lecture</a>]</span>
+						<span class="pull-right">[<a href="637306/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>54</i></b></li>
+					<li>citations: <b><i>16020</i></b></li>
+					<li>publications: <b><i>193</i></b></li>
+				</ul>
+				<p class='item-description'>Professor, Helsinki University of Technology</p>
+				<ul class="item-topics inline">
+					<li>Data Mining</li>
+					<li>Mixture Model</li>
+					<li>Model Selection</li>
+				</ul>
+			</div>
+		</li>
+	</ul>
+	</div>
+	<div class="extra-results-pane span4">
+		<div class="extra-results">
+			<section>
+			<h4>Publications</h4>
+			<ul class="unstyled">
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-562366.html">Introduction to 3DM: Domain-Oriented Data-Driven Data Mining.</a>
+				</div>
+					<div class="extra-item-authors">Guoyin Wang</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:4</div>
+					<div class="extra-item-year">2008</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-708450.html">Domain-Oriented Data-Driven Data Mining (3DM): Simulation of Human Knowledge Understanding.</a>
+				</div>
+					<div class="extra-item-authors">Guoyin Wang</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:10</div>
+					<div class="extra-item-year">2006</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-1241797.html">Towards an Ontology of Data Mining Investigations.</a>
+				</div>
+					<div class="extra-item-authors">Saso Dzeroski, Pance Panov, Larisa N. Soldatova</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:19</div>
+					<div class="extra-item-year">2009</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-527362.html">Research Frontiers in Advanced Data Mining Technologies and Applications.</a>
+				</div>
+					<div class="extra-item-authors">Jiawei Han</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:1</div>
+					<div class="extra-item-year">2007</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-883155.html">3DM: Domain-oriented Data-driven Data Mining.</a>
+				</div>
+					<div class="extra-item-authors">Yan Wang, Guoyin Wang</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:21</div>
+					<div class="extra-item-year">2009</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-261216.html">A Human-Friendly MAS for Mining Stock Data.</a>
+				</div>
+					<div class="extra-item-authors">Chengqi Zhang, Jiarui Ni</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:2</div>
+					<div class="extra-item-year">2006</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-598827.html">GeoMiner: A System Prototype for Spatial Data Mining.</a>
+				</div>
+					<div class="extra-item-authors">Krzysztof Koperski, Nebojsa Stefanovic, Jiawei Han</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:224</div>
+					<div class="extra-item-year">1997</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-219273.html">TDML: A Data Mining Language for Transaction Databases.</a>
+				</div>
+					<div class="extra-item-authors">R. Nadarajan, A. Muthukumar</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:2</div>
+					<div class="extra-item-year">2007</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-1064769.html">Towards On-Line Analytical Mining in Large Databases.</a>
+				</div>
+					<div class="extra-item-authors">Jiawei Han</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:196</div>
+					<div class="extra-item-year">1998</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-112772.html">Understanding Data Mining and applying it to Command, Control, Communications and Intelligence Environments.</a>
+				</div>
+					<div class="extra-item-authors">Marion Ceruti, B. M. Thuraisingham</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:13</div>
+					<div class="extra-item-year">2000</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-218309.html">A Framework for Object-Oriented Data Mining.</a>
+				</div>
+					<div class="extra-item-authors">Li Linna, Bingru Yang, Faguo Zhou</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:4</div>
+					<div class="extra-item-year">2008</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-687112.html">A Verification Scheme for Data Aggregation in Data Mining.</a>
+				</div>
+					<div class="extra-item-authors">Kilho Shin, Justin Zhan</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-year">2007</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-261680.html">CAKE - Classifying, Associating and Knowledge DiscovEry - An Approach for Distributed Data Mining (DDM) Using PArallel Data Mining Agents (PADMAs).</a>
+				</div>
+					<div class="extra-item-authors">Danish Khan</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:6</div>
+					<div class="extra-item-year">2008</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-713081.html">Advancing Knowledge Discovery and Data Mining.</a>
+				</div>
+					<div class="extra-item-authors">Qi Luo</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-year">2008</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-1316600.html">Using Data Mining to Estimate Equivalent Surface of Broadcasting Effect.</a>
+				</div>
+					<div class="extra-item-authors">Ying Li, Shouxun Liu, Guang Li</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-year">2009</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-303788.html">OntoDM: An Ontology of Data Mining.</a>
+				</div>
+					<div class="extra-item-authors">Saso Dzeroski, Pance Panov, Larisa N. Soldatova</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:32</div>
+					<div class="extra-item-year">2008</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-473894.html">Towards a General Framework for Data Mining.</a>
+				</div>
+					<div class="extra-item-authors">Saso Dzeroski</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:33</div>
+					<div class="extra-item-year">2006</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-303367.html">A Systemic Framework for the Field of Data Mining and Knowledge Discovery.</a>
+				</div>
+					<div class="extra-item-authors">Yi Peng, Zhengxin Chen, Gang Kou</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:6</div>
+					<div class="extra-item-year">2006</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-373731.html">OIDM: Online Interactive Data Mining.</a>
+				</div>
+					<div class="extra-item-authors">Xindong Wu, Qijun Chen, Xingquan Zhu</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:8</div>
+					<div class="extra-item-year">2004</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-76975.html">DBMiner: a system for data mining in relational databases and data warehouses.</a>
+				</div>
+					<div class="extra-item-authors">Hua Zhu, Shan Cheng, Jianping Chen</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:87</div>
+					<div class="extra-item-year">1997</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+			</ul>
+			</section>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$('.btn-analysis').click(function() {
+		var query = $('.search-query', $(this).parent()).val();
+		window.location = "topictrends?q=" + encodeURIComponent(query);
+		return false;
+	});
+	$(document).ready(function() {
+		$('.result-item .item-img img').one('error', function() {
+			$(this).attr('src', 'http://static02.linkedin.com/scds/common/u/img/icon/icon_no_company_logo_100x60.png');
+		});
+	});
+</script>
+
+    </div>
+
+</body>
+</html>

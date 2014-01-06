@@ -1,0 +1,831 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="/static/bootstrap/css/bootstrap.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="/static/bootstrap/css/bootstrap-responsive.css" media="all" />
+    <script src="/static/jquery-2.0.1.min.js"></script>
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/d3.v3.min.js"></script>
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-inner">
+            <a class="brand" href="/">SAE</a>
+            <ul class="nav">
+                <li> <a href="/academic/search">Academic</a> </li>
+                <li> <a href="/patent/search">Patent</a> </li>
+                <li> <a href="/weibo/search">Weibo</a> </li>
+            </ul>
+        </div>
+    </div>
+    <div class="container">
+<style type="text/css">
+	.result-item {
+		padding: 4px 2px 4px 6px;
+		border-bottom: 1px dashed #f6f6f6;
+	}
+
+	.item-img {
+		max-width: 120px;
+		padding: 2px;
+		border: 1px solid #ddd;
+		border-radius: 4px;
+	}
+
+	.item-img:hover {
+		border-color: #0088cc;
+	}
+
+	.item-stats {
+		color: green;
+		font-size: 12px;
+	}
+
+	ul.item-stats > li {
+		margin-left: 0;
+		padding-left: 0;
+	}
+
+	.item-description {
+		color: grey;
+		margin: 0;
+	}
+
+	.item-topics > li {
+		padding-left: 0;
+		font-size: 11px;
+		border: solid 1px rgba(99, 99, 99, 0.18);
+	}
+
+	.extra-results {
+		line-height: 14px;
+	}
+
+	.extra-item {
+		padding: 4px 2px 4px 6px;
+		border-bottom: 1px dashed #f6f6f6;
+	}
+
+	.extra-item-title {
+		color: black;
+		font-size: 12px;
+	}
+
+	.extra-item-authors {
+		color: green;
+		font-size: 12px;
+	}
+
+	.extra-item-stats {
+		line-height: 14px;
+		height: 12px;
+		color: grey;
+	}
+
+</style>
+
+<form class="search form-search" method="get">
+	<fieldset>
+		<legend>Entity Search</legend>
+		<input type="text" class="search-query" name="q" placeholder="type in a topic, e.g. data mining" value="big data"/>
+		<button class="btn btn-primary" type="submit">Search</button>
+			<button class="btn btn-analysis">Topic Trend</button>
+	</fieldset>
+</form>
+
+	<p>Hot queries:
+	<span><a href="search?q=data mining">data mining</a></span>
+	<span><a href="search?q=machine learning">machine learning</a></span>
+
+<div class="row-fluid">
+	<div class="results span8">
+	<div class="results-summary pull-right">5000 results, displaying 0 - 15</div>
+	<h4>Experts</h4>
+	<ul class="unstyled">
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-84063.html">
+					<img src="http://pic1.aminer.org/picture/537/1225211365862.jpeg" alt="Cauligi Raghavendra" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-84063.html">Cauligi Raghavendra</a>
+						<span class="pull-right">[<a href="84027/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>28</i></b></li>
+					<li>citations: <b><i>5622</i></b></li>
+					<li>publications: <b><i>72</i></b></li>
+				</ul>
+				<p class='item-description'>Professor, Electrical Engineering and Computer Science
+ Viterbi School of Engineering at the University of Southern California</p>
+				<ul class="item-topics inline">
+					<li>Wireless Network</li>
+					<li>Low-Power Device</li>
+					<li>Efficient Multi-Party Digital Signature</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-205807.html">
+					<img src="http://pic1.aminer.org/picture/491/1225202434024.jpeg" alt="Krishna M. Sivalingam" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-205807.html">Krishna M. Sivalingam</a>
+						<span class="pull-right">[<a href="205698/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>20</i></b></li>
+					<li>citations: <b><i>3161</i></b></li>
+					<li>publications: <b><i>81</i></b></li>
+				</ul>
+				<p class='item-description'>Professor
+, Department of Computer Science and Electrical Engineering</p>
+				<ul class="item-topics inline">
+					<li>International Conference</li>
+					<li>Special Issue</li>
+					<li>Selected Papers</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-1189793.html">
+					<img src="http://pic.aminer.org/picture/images/no_photo.jpg" alt="Stephanie Lindsey" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-1189793.html">Stephanie Lindsey</a>
+						<span class="pull-right">[<a href="1188413/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>3</i></b></li>
+					<li>citations: <b><i>1019</i></b></li>
+					<li>publications: <b><i>4</i></b></li>
+				</ul>
+				<p class='item-description'>, </p>
+				<ul class="item-topics inline">
+					<li>Situation Awareness</li>
+					<li>Energy Efficient All-To-All Broadcasting</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-745329.html">
+					<img src="http://pic1.aminer.org/picture/02927/Jiawei_Han_1330682737987.jpg" alt="Jiawei Han" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-745329.html">Jiawei Han</a>
+						<span>[<a href="http://scholar.google.com/citations?user=Kv9AbjMAAAAJ&amp;hl=en">google_scholar</a>]</span>
+						<span>[<a href="http://www.linkedin.com/pub/jiawei-han/8/679/88a">linkedin</a>]</span>
+						<span>[<a href="http://videolectures.net/jiawei_han">video_lecture</a>]</span>
+						<span class="pull-right">[<a href="744714/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>103</i></b></li>
+					<li>citations: <b><i>65973</i></b></li>
+					<li>publications: <b><i>600</i></b></li>
+				</ul>
+				<p class='item-description'>Professor, Department of Computer Science, University of Illinois at Urbana-Champaign</p>
+				<ul class="item-topics inline">
+					<li>Data Mining</li>
+					<li>Data Streams</li>
+					<li>Efficient Mining</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-265966.html">
+					<img src="http://pic1.aminer.org/picture/00203/Philip_S_Yu_1289395474146.jpg" alt="Philip S. Yu" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-265966.html">Philip S. Yu</a>
+						<span>[<a href="http://scholar.google.se/citations?user=D0lL1r0AAAAJ&amp;hl=en">google_scholar</a>]</span>
+						<span>[<a href="http://videolectures.net/philip_s_yu/">video_lecture</a>]</span>
+						<span class="pull-right">[<a href="265777/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>93</i></b></li>
+					<li>citations: <b><i>37339</i></b></li>
+					<li>publications: <b><i>731</i></b></li>
+				</ul>
+				<p class='item-description'>Professor and Wexler Chair in Information Technology, Department of Computer Science, University of Illinouis Chicago</p>
+				<ul class="item-topics inline">
+					<li>System S.</li>
+					<li>High Data Rate Stream</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-1170134.html">
+					<img src="http://pic1.aminer.org/picture/487/1225200646700.jpeg" alt="J. Hellerstein" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-1170134.html">J. Hellerstein</a>
+						<span class="pull-right">[<a href="1168764/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>64</i></b></li>
+					<li>citations: <b><i>22466</i></b></li>
+					<li>publications: <b><i>178</i></b></li>
+				</ul>
+				<p class='item-description'>Professor, EECS Computer Science Division
+UC Berkeley</p>
+				<ul class="item-topics inline">
+					<li>New Framework</li>
+					<li>Data Visualization</li>
+					<li>Declarative Programming</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-268051.html">
+					<img src="http://pic1.aminer.org/picture/40/1225198818594.jpeg" alt="Adam Meyerson" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-268051.html">Adam Meyerson</a>
+						<span class="pull-right">[<a href="267862/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>25</i></b></li>
+					<li>citations: <b><i>3813</i></b></li>
+					<li>publications: <b><i>55</i></b></li>
+				</ul>
+				<p class='item-description'>Software Engineer, Adwords Team
+Google, Inc.</p>
+				<ul class="item-topics inline">
+					<li>Chordal Graphs</li>
+					<li>Lte Uplink</li>
+					<li>Constant Factor Approximation</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-36958.html">
+					<img src="http://pic0.aminer.org/picture/02220/Charu_C_Aggarwal_1352372489947.jpg" alt="Charu C. Aggarwal" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-36958.html">Charu C. Aggarwal</a>
+						<span>[<a href="http://scholar.google.se/citations?user=x_wsduUAAAAJ&amp;hl=en">google_scholar</a>]</span>
+						<span>[<a href="http://www.linkedin.com/pub/charu-aggarwal/0/510/a59">linkedin</a>]</span>
+						<span>[<a href="http://videolectures.net/charu_aggarwal">video_lecture</a>]</span>
+						<span class="pull-right">[<a href="36941/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>49</i></b></li>
+					<li>citations: <b><i>13176</i></b></li>
+					<li>publications: <b><i>227</i></b></li>
+				</ul>
+				<p class='item-description'>Research Scientist, IBM T. J. Watson Research Center</p>
+				<ul class="item-topics inline">
+					<li>Uncertain Data</li>
+					<li>Concept-Drifting Data Streams</li>
+					<li>Graph Streams</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-856261.html">
+					<img src="http://pic1.aminer.org/picture/486/1225200434435.jpeg" alt="Jennifer Widom" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-856261.html">Jennifer Widom</a>
+						<span class="pull-right">[<a href="855532/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>81</i></b></li>
+					<li>citations: <b><i>33171</i></b></li>
+					<li>publications: <b><i>189</i></b></li>
+				</ul>
+				<p class='item-description'>Professor of Stanford University, Depts. of Computer Science and EE
+Stanford University</p>
+				<ul class="item-topics inline">
+					<li>Uncertain Data</li>
+					<li>Generic Approach</li>
+					<li>Uncertain Databases</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-663919.html">
+					<img src="http://www.cs.ucsb.edu/~amr/amrsmall.jpg" alt="A. El Abbadi" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-663919.html">A. El Abbadi</a>
+						<span class="pull-right">[<a href="663385/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>52</i></b></li>
+					<li>citations: <b><i>9733</i></b></li>
+					<li>publications: <b><i>284</i></b></li>
+				</ul>
+				<p class='item-description'>Professor, University of California</p>
+				<ul class="item-topics inline">
+					<li>Data Streams</li>
+					<li>Data Management</li>
+					<li>Cloud Computing</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-623598.html">
+					<img src="http://pic1.aminer.org/picture/519/1225211009320.jpeg" alt="Ryan Williams" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-623598.html">Ryan Williams</a>
+						<span class="pull-right">[<a href="623107/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>18</i></b></li>
+					<li>citations: <b><i>1508</i></b></li>
+					<li>publications: <b><i>59</i></b></li>
+				</ul>
+				<p class='item-description'>Assistant Professor, Stanford University Computer Science Department</p>
+				<ul class="item-topics inline">
+					<li>Group Algebras</li>
+					<li>Parameterized Problems</li>
+					<li>Real Weighted Graph</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-1153301.html">
+					<img src="http://www.cs.ucsb.edu/~agrawal/images/agrawal.jpg" alt="Divyakant Agrawal" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-1153301.html">Divyakant Agrawal</a>
+						<span class="pull-right">[<a href="1152010/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>58</i></b></li>
+					<li>citations: <b><i>12028</i></b></li>
+					<li>publications: <b><i>324</i></b></li>
+				</ul>
+				<p class='item-description'>Professor, University of California</p>
+				<ul class="item-topics inline">
+					<li>Data Streams</li>
+					<li>Data Management</li>
+					<li>Ieee International Conference</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-945393.html">
+					<img src="http://pic1.aminer.org/picture/487/1225200757039.gif" alt="Jon Crowcroft" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-945393.html">Jon Crowcroft</a>
+						<span class="pull-right">[<a href="944507/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>44</i></b></li>
+					<li>citations: <b><i>16037</i></b></li>
+					<li>publications: <b><i>238</i></b></li>
+				</ul>
+				<p class='item-description'>Professor of Communications Systems, Computer Lab
+University of Cambridge</p>
+				<ul class="item-topics inline">
+					<li>Unclouded Vision</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-291166.html">
+					<img src="http://pic.aminer.org/picture/images/no_photo.jpg" alt="Pan Hui" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-291166.html">Pan Hui</a>
+						<span class="pull-right">[<a href="290967/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>15</i></b></li>
+					<li>citations: <b><i>3115</i></b></li>
+					<li>publications: <b><i>79</i></b></li>
+				</ul>
+				<p class='item-description'>, </p>
+				<ul class="item-topics inline">
+					<li>Routing Protocol</li>
+					<li>Delay Tolerant Networks</li>
+					<li>Community Detection</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-980443.html">
+					<img src="http://www.dvs.tu-darmstadt.de/staff/alumni/christof.bornhoevd.jpg" alt="Christof Bornhovd" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-980443.html">Christof Bornhovd</a>
+						<span class="pull-right">[<a href="979406/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>16</i></b></li>
+					<li>citations: <b><i>883</i></b></li>
+					<li>publications: <b><i>23</i></b></li>
+				</ul>
+				<p class='item-description'>, Technische Universitat Darmstadt</p>
+				<ul class="item-topics inline">
+					<li>Mobile Ad-Hoc Networks</li>
+					<li>Latent Semantic Indexing</li>
+					<li>Web Service Discovery</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-653073.html">
+					<img src="http://arnetminer.org/pictures/picture/01688/Shivnath_Babu_1318043299946.jpg" alt="Shivnath Babu" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-653073.html">Shivnath Babu</a>
+						<span class="pull-right">[<a href="652547/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>27</i></b></li>
+					<li>citations: <b><i>6617</i></b></li>
+					<li>publications: <b><i>70</i></b></li>
+				</ul>
+				<p class='item-description'>Assistant Professor, Department of Computer Science 
+ Duke University</p>
+				<ul class="item-topics inline">
+					<li>Third International Workshop</li>
+					<li>Automated Diagnosis</li>
+					<li>Self-Managing Database Systems</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-1045412.html">
+					<img src="http://pic.aminer.org/picture/images/no_photo.jpg" alt="Stephan Haller" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-1045412.html">Stephan Haller</a>
+						<span class="pull-right">[<a href="1044287/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>5</i></b></li>
+					<li>citations: <b><i>278</i></b></li>
+					<li>publications: <b><i>8</i></b></li>
+				</ul>
+				<p class='item-description'>, </p>
+				<ul class="item-topics inline">
+					<li>Future Retail Industry</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-385317.html">
+					<img src="http://pic.aminer.org/picture/images/no_photo.jpg" alt="Joachim Schaper" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-385317.html">Joachim Schaper</a>
+						<span class="pull-right">[<a href="385069/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>7</i></b></li>
+					<li>citations: <b><i>268</i></b></li>
+					<li>publications: <b><i>15</i></b></li>
+				</ul>
+				<p class='item-description'>, </p>
+				<ul class="item-topics inline">
+					<li>Service-Oriented Environment</li>
+					<li>Handling Crisis</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-18850.html">
+					<img src="http://pic.aminer.org/picture/images/no_photo.jpg" alt="Tao Lin" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-18850.html">Tao Lin</a>
+						<span class="pull-right">[<a href="18837/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>5</i></b></li>
+					<li>citations: <b><i>234</i></b></li>
+					<li>publications: <b><i>14</i></b></li>
+				</ul>
+				<p class='item-description'>, SAP Research Center Palo Alto, LLC, CA
+SAP Research Labs, Palo Alto, CA
+</p>
+				<ul class="item-topics inline">
+					<li>Dynamic Resource Allocation</li>
+					<li>Partitioning Problem</li>
+					<li>Cross-Layer Flow Control</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-193662.html">
+					<img src="http://research.microsoft.com/en-us/groups/dmx/fei.jpg" alt="Renee J. Miller" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-193662.html">Renee J. Miller</a>
+						<span class="pull-right">[<a href="193564/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>35</i></b></li>
+					<li>citations: <b><i>5907</i></b></li>
+					<li>publications: <b><i>75</i></b></li>
+				</ul>
+				<p class='item-description'>Professor, Computer Science and the Bell University Labs Chair of Information Systems at the University of Toronto</p>
+				<ul class="item-topics inline">
+					<li>Information Integration</li>
+					<li>Clustering Algorithms</li>
+					<li>Holistic Approach</li>
+				</ul>
+			</div>
+		</li>
+	</ul>
+	</div>
+	<div class="extra-results-pane span4">
+		<div class="extra-results">
+			<section>
+			<h4>Publications</h4>
+			<ul class="unstyled">
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-159931.html">Handling big dimensions in distributed data warehouses using the DWS technique.</a>
+				</div>
+					<div class="extra-item-authors">Marco Costa, Henrique Madeira</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:13</div>
+					<div class="extra-item-year">2004</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-3483262.html">Big science, big data, and a big role for biomedical informatics.</a>
+				</div>
+					<div class="extra-item-authors">Lucila Ohno-Machado</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-year">2012</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-3642049.html">Big Earth - Big data!</a>
+				</div>
+					<div class="extra-item-authors"></div>
+				<div class="extra-item-stats">
+					<div class="extra-item-year">2012</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-3626120.html">Driving big data with big compute.</a>
+				</div>
+					<div class="extra-item-authors"></div>
+				<div class="extra-item-stats">
+					<div class="extra-item-year">2012</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-3393436.html">Data Stewardship in the Age of Big Data.</a>
+				</div>
+					<div class="extra-item-authors">Daniel E. Atkins</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-year">2012</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-3633378.html">Efficient data transfer protocols for big data.</a>
+				</div>
+					<div class="extra-item-authors"></div>
+				<div class="extra-item-stats">
+					<div class="extra-item-year">2012</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-3582812.html">When big data leads to lost data.</a>
+				</div>
+					<div class="extra-item-authors">David Maier, V. M. Megler</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:2</div>
+					<div class="extra-item-year">2012</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-3465676.html">Big privacy: protecting confidentiality in big data.</a>
+				</div>
+					<div class="extra-item-authors">Jerome P. Reiter, Ashwin Machanavajjhala</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-year">2012</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-3650288.html">From Data to Decisions: A Value Chain for Big Data.</a>
+				</div>
+					<div class="extra-item-authors"></div>
+				<div class="extra-item-stats">
+					<div class="extra-item-year">2013</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-3674998.html">Addressing Big Data challenges for Scientific Data Infrastructure.</a>
+				</div>
+					<div class="extra-item-authors"></div>
+				<div class="extra-item-stats">
+					<div class="extra-item-year">2012</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-3393429.html">Managing Big Data through Hybrid Data Infrastructures.</a>
+				</div>
+					<div class="extra-item-authors">Leonardo Candela, Pasquale Pagano, D. Castelli</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-year">2012</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-3540096.html">Business Intelligence and Analytics: From Big Data to Big Impact.</a>
+				</div>
+					<div class="extra-item-authors">Chen Hsinchun, Roger Chiang, Veda C. Storey</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:2</div>
+					<div class="extra-item-year">2012</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-3547277.html">Data Interpolation: An Efficient Sampling Alternative for Big Data Aggregation</a>
+				</div>
+					<div class="extra-item-authors">Zvi Lotker, Shlomi Dolev, Hadassa Daltrophe</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-year">2012</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-3393411.html">Crime and Corruption Observatory: Big Questions behind Big Data.</a>
+				</div>
+					<div class="extra-item-authors">Rosaria Conte, Mario Paolucci, Giulia Bonelli</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-year">2012</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-3675025.html">AROM: Processing big data with Data Flow Graphs and functional programming.</a>
+				</div>
+					<div class="extra-item-authors"></div>
+				<div class="extra-item-stats">
+					<div class="extra-item-year">2012</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-3635970.html">Big Data Interpolation an Efficient Sampling Alternative for Sensor Data Aggregation.</a>
+				</div>
+					<div class="extra-item-authors"></div>
+				<div class="extra-item-stats">
+					<div class="extra-item-year">2012</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-3189627.html">Analytics over large-scale multidimensional data: the big data revolution!</a>
+				</div>
+					<div class="extra-item-authors">Il Yeol Song, Karen C. Davis, Alfredo Cuzzocrea</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:5</div>
+					<div class="extra-item-year">2011</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-3634911.html">Towards big linked data: a large-scale, distributed semantic data storage.</a>
+				</div>
+					<div class="extra-item-authors"></div>
+				<div class="extra-item-stats">
+					<div class="extra-item-year">2012</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-3638798.html">Keynote address: Clinical Decision Support: The challenge of big data and big computation.</a>
+				</div>
+					<div class="extra-item-authors"></div>
+				<div class="extra-item-stats">
+					<div class="extra-item-year">2012</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-3568598.html">Distributed adaptive routing for big-data applications running on data center networks.</a>
+				</div>
+					<div class="extra-item-authors">I. Keslassy, Eitan Zahavi, Avinoam Kolodny</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-year">2012</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+			</ul>
+			</section>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$('.btn-analysis').click(function() {
+		var query = $('.search-query', $(this).parent()).val();
+		window.location = "topictrends?q=" + encodeURIComponent(query);
+		return false;
+	});
+	$(document).ready(function() {
+		$('.result-item .item-img img').one('error', function() {
+			$(this).attr('src', 'http://static02.linkedin.com/scds/common/u/img/icon/icon_no_company_logo_100x60.png');
+		});
+	});
+</script>
+
+    </div>
+
+</body>
+</html>

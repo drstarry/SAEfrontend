@@ -1,0 +1,864 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="/static/bootstrap/css/bootstrap.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="/static/bootstrap/css/bootstrap-responsive.css" media="all" />
+    <script src="/static/jquery-2.0.1.min.js"></script>
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/d3.v3.min.js"></script>
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-inner">
+            <a class="brand" href="/">SAE</a>
+            <ul class="nav">
+                <li> <a href="/academic/search">Academic</a> </li>
+                <li> <a href="/patent/search">Patent</a> </li>
+                <li> <a href="/weibo/search">Weibo</a> </li>
+            </ul>
+        </div>
+    </div>
+    <div class="container">
+<style type="text/css">
+	.result-item {
+		padding: 4px 2px 4px 6px;
+		border-bottom: 1px dashed #f6f6f6;
+	}
+
+	.item-img {
+		max-width: 120px;
+		padding: 2px;
+		border: 1px solid #ddd;
+		border-radius: 4px;
+	}
+
+	.item-img:hover {
+		border-color: #0088cc;
+	}
+
+	.item-stats {
+		color: green;
+		font-size: 12px;
+	}
+
+	ul.item-stats > li {
+		margin-left: 0;
+		padding-left: 0;
+	}
+
+	.item-description {
+		color: grey;
+		margin: 0;
+	}
+
+	.item-topics > li {
+		padding-left: 0;
+		font-size: 11px;
+		border: solid 1px rgba(99, 99, 99, 0.18);
+	}
+
+	.extra-results {
+		line-height: 14px;
+	}
+
+	.extra-item {
+		padding: 4px 2px 4px 6px;
+		border-bottom: 1px dashed #f6f6f6;
+	}
+
+	.extra-item-title {
+		color: black;
+		font-size: 12px;
+	}
+
+	.extra-item-authors {
+		color: green;
+		font-size: 12px;
+	}
+
+	.extra-item-stats {
+		line-height: 14px;
+		height: 12px;
+		color: grey;
+	}
+
+</style>
+
+<form class="search form-search" method="get">
+	<fieldset>
+		<legend>Entity Search</legend>
+		<input type="text" class="search-query" name="q" placeholder="type in a topic, e.g. data mining" value="social network"/>
+		<button class="btn btn-primary" type="submit">Search</button>
+			<button class="btn btn-analysis">Topic Trend</button>
+	</fieldset>
+</form>
+
+	<p>Hot queries:
+	<span><a href="search?q=data mining">data mining</a></span>
+	<span><a href="search?q=machine learning">machine learning</a></span>
+
+<div class="row-fluid">
+	<div class="results span8">
+	<div class="results-summary pull-right">5000 results, displaying 0 - 15</div>
+	<h4>Experts</h4>
+	<ul class="unstyled">
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-386117.html">
+					<img src="http://arnetminer.org/pictures/picture/03751/Jon_M_Kleinberg_1324478578467.jpg" alt="Jon M. Kleinberg" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-386117.html">Jon M. Kleinberg</a>
+						<span>[<a href="http://videolectures.net/jon_kleinberg">video_lecture</a>]</span>
+						<span class="pull-right">[<a href="385869/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>78</i></b></li>
+					<li>citations: <b><i>40503</i></b></li>
+					<li>publications: <b><i>185</i></b></li>
+				</ul>
+				<p class='item-description'>Professor, Department of Computer Science, Cornell University, USA
+</p>
+				<ul class="item-topics inline">
+					<li>Case Study</li>
+					<li>Social Networks</li>
+					<li>Online Community</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-1464342.html">
+					<img src="http://pic1.aminer.org/picture/00393/Jure_Leskovec_1297509278836.jpg" alt="Jure Leskovec" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-1464342.html">Jure Leskovec</a>
+						<span>[<a href="http://scholar.google.se/citations?user=Q_kKkIUAAAAJ&amp;hl=en">google_scholar</a>]</span>
+						<span>[<a href="http://www.linkedin.com/profile/view?id=155572&amp;authType=NAME_SEARCH&amp;authToken=9MQt&amp;locale=en_US&amp;srchid=2784050491375973753806&amp;srchindex=2&amp;srchtotal=26&amp;trk=vsrp_people_res_name&amp;trkInfo=VSRPsearchId%3A2784050491375973753806%2CVSRPtargetId%3A155572%2CVSRPcmpt%3Aprimary">linkedin</a>]</span>
+						<span>[<a href="http://videolectures.net/jure_leskovec">video_lecture</a>]</span>
+						<span class="pull-right">[<a href="1462503/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>36</i></b></li>
+					<li>citations: <b><i>9634</i></b></li>
+					<li>publications: <b><i>95</i></b></li>
+				</ul>
+				<p class='item-description'>Assistant Professor , Computer Science, Stanford University</p>
+				<ul class="item-topics inline">
+					<li>Case Study</li>
+					<li>Large Networks</li>
+					<li>Social Media</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-8181.html">
+					<img src="http://pic1.aminer.org/picture/47/1225199773522.jpeg" alt="Jennifer Golbeck" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-8181.html">Jennifer Golbeck</a>
+						<span class="pull-right">[<a href="8180/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>28</i></b></li>
+					<li>citations: <b><i>3690</i></b></li>
+					<li>publications: <b><i>70</i></b></li>
+				</ul>
+				<p class='item-description'>Assistant Professor
+, College of Information Studies
+Human-Computer Interaction Lab
+Center for Information Policy and E-Government</p>
+				<ul class="item-topics inline">
+					<li>Online Social Network</li>
+					<li>Semantic Web Service Composition</li>
+					<li>Web-Based Social Network</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-962446.html">
+					<img src="http://pic1.aminer.org/picture/510/1225210517856.jpeg" alt="Przemyslaw Kazienko" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-962446.html">Przemyslaw Kazienko</a>
+						<span class="pull-right">[<a href="961508/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>14</i></b></li>
+					<li>citations: <b><i>676</i></b></li>
+					<li>publications: <b><i>112</i></b></li>
+				</ul>
+				<p class='item-description'> Assistant professor, Institute of Applied Informatics
+Department of Information Systems</p>
+				<ul class="item-topics inline">
+					<li>Social Networks</li>
+					<li>Social Network</li>
+					<li>Structured Prediction</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-522048.html">
+					<img src="http://arnetminer.org/pictures/picture/00652/P_Krishna_Gummadi_1323072307122.jpg" alt="P. Krishna Gummadi" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-522048.html">P. Krishna Gummadi</a>
+						<span class="pull-right">[<a href="521738/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>22</i></b></li>
+					<li>citations: <b><i>6854</i></b></li>
+					<li>publications: <b><i>45</i></b></li>
+				</ul>
+				<p class='item-description'>Researcher, Head, Networked Systems Research Group,
+Max Planck Institute for Software Systems (MPI-SWS)</p>
+				<ul class="item-topics inline">
+					<li>Online Social Network</li>
+					<li>User Interaction</li>
+					<li>Research Community</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-1018265.html">
+					<img src="http://ymatsuo.com/images/top_pics.jpg" alt="Yutaka Matsuo" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-1018265.html">Yutaka Matsuo</a>
+						<span>[<a href="http://videolectures.net/yutaka_matsuo">video_lecture</a>]</span>
+						<span class="pull-right">[<a href="1017163/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>24</i></b></li>
+					<li>citations: <b><i>2868</i></b></li>
+					<li>publications: <b><i>91</i></b></li>
+				</ul>
+				<p class='item-description'>Associate Professor, Information Technology and Artificial Intelligence, University of Tokyo</p>
+				<ul class="item-topics inline">
+					<li>Semi-Supervised Learning</li>
+					<li>Semantic Similarity</li>
+					<li>Online Social Network</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-67599.html">
+					<img src="http://pic1.aminer.org/picture/490/1225202024607.jpeg" alt="D. P. Huttenlocher" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-67599.html">D. P. Huttenlocher</a>
+						<span class="pull-right">[<a href="67575/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>46</i></b></li>
+					<li>citations: <b><i>14674</i></b></li>
+					<li>publications: <b><i>76</i></b></li>
+				</ul>
+				<p class='item-description'>Professor, Computer Science Department</p>
+				<ul class="item-topics inline">
+					<li>Case Study</li>
+					<li>Social Networks</li>
+					<li>Online Social Network</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-1458619.html">
+					<img src="http://pic1.aminer.org/picture/01823/Jie_Tang_1348889820664.jpg" alt="Jie Tang" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-1458619.html">Jie Tang</a>
+						<span>[<a href="http://weibo.com/jietangthu">sina_weibo</a>]</span>
+						<span>[<a href="https://www.facebook.com/jie.tang.585">facebook</a>]</span>
+						<span>[<a href="http://scholar.google.com/citations?user=n1zDCkQAAAAJ&amp;hl=en">google_scholar</a>]</span>
+						<span>[<a href="http://www.linkedin.com/in/jietangtsinghua">linkedin</a>]</span>
+						<span>[<a href="http://videolectures.net/jie_tang">video_lecture</a>]</span>
+						<span class="pull-right">[<a href="1456809/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>25</i></b></li>
+					<li>citations: <b><i>2343</i></b></li>
+					<li>publications: <b><i>154</i></b></li>
+				</ul>
+				<p class='item-description'>Associate Professor , Department of Computer Science and Technology, Tsinghua University, China</p>
+				<ul class="item-topics inline">
+					<li>Social Network</li>
+					<li>Probabilistic Model</li>
+					<li>Graph Model</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-1514109.html">
+					<img src="http://www.ccs.neu.edu/home/amislove/images/alan-new5.jpg" alt="Alan Mislove" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-1514109.html">Alan Mislove</a>
+						<span>[<a href="http://videolectures.net/alan_mislove">video_lecture</a>]</span>
+						<span class="pull-right">[<a href="1512162/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>16</i></b></li>
+					<li>citations: <b><i>2448</i></b></li>
+					<li>publications: <b><i>26</i></b></li>
+				</ul>
+				<p class='item-description'>Assistant Professor, College of Computer and Information Science
+Northeastern University</p>
+				<ul class="item-topics inline">
+					<li>Online Social Network</li>
+					<li>User Interaction</li>
+					<li>Information Propagation</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-507646.html">
+					<img src="http://pic1.aminer.org/picture/00287/Lars_Backstrom_1305322385513.png" alt="Lars Backstrom" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-507646.html">Lars Backstrom</a>
+						<span>[<a href="http://videolectures.net/lars_backstrom">video_lecture</a>]</span>
+						<span class="pull-right">[<a href="507337/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>15</i></b></li>
+					<li>citations: <b><i>2794</i></b></li>
+					<li>publications: <b><i>22</i></b></li>
+				</ul>
+				<p class='item-description'>Researcher, Facebook</p>
+				<ul class="item-topics inline">
+					<li>Social Networks</li>
+					<li>Spatial Proximity</li>
+					<li>Recommending Links</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-763392.html">
+					<img src="http://pic1.aminer.org/picture/487/1225200642430.jpeg" alt="Ishizuka Mitsuru" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-763392.html">Ishizuka Mitsuru</a>
+						<span>[<a href="http://videolectures.net/mitsuru_ishizuka">video_lecture</a>]</span>
+						<span class="pull-right">[<a href="762746/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>33</i></b></li>
+					<li>citations: <b><i>4634</i></b></li>
+					<li>publications: <b><i>264</i></b></li>
+				</ul>
+				<p class='item-description'>Professor, Department of Creative Informatics
+    Department of Information and Communication Eng
+Graduate School of Information Science and Technology 
+University of Tokyo</p>
+				<ul class="item-topics inline">
+					<li>Virtual Worlds</li>
+					<li>Virtual World</li>
+					<li>Web Intelligence</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-21895.html">
+					<img src="http://arnetminer.org/pictures/picture/03145/Ravi_Kumar_1323785461605.gif" alt="Ravi Kumar" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-21895.html">Ravi Kumar</a>
+						<span>[<a href="http://scholar.google.se/citations?user=J_XhIsgAAAAJ&amp;hl=en">google_scholar</a>]</span>
+						<span>[<a href="http://www.linkedin.com/profile/view?id=1684764&amp;authType=NAME_SEARCH&amp;authToken=5hDy&amp;locale=en_US&amp;srchid=2784050491375975141791&amp;srchindex=1&amp;srchtotal=7&amp;trk=vsrp_people_res_name&amp;trkInfo=VSRPsearchId%3A2784050491375975141791%2CVSRPtargetId%3A1684764%2CVSRPcmpt%3Aprimary">linkedin</a>]</span>
+						<span>[<a href="http://videolectures.net/ravi_kumar">video_lecture</a>]</span>
+						<span class="pull-right">[<a href="21882/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>55</i></b></li>
+					<li>citations: <b><i>18573</i></b></li>
+					<li>publications: <b><i>200</i></b></li>
+				</ul>
+				<p class='item-description'>Research staff member, Yahoo! Research </p>
+				<ul class="item-topics inline">
+					<li>Social Network</li>
+					<li>Online Social Networks</li>
+					<li>Mining Web Log</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-1337788.html">
+					<img src="http://www-bcf.usc.edu/~dkempe/images/photo2.jpg" alt="David Kempe" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-1337788.html">David Kempe</a>
+						<span class="pull-right">[<a href="1336185/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>30</i></b></li>
+					<li>citations: <b><i>5238</i></b></li>
+					<li>publications: <b><i>62</i></b></li>
+				</ul>
+				<p class='item-description'>Associate Professor, Department of Computer Science
+ University of Southern California</p>
+				<ul class="item-topics inline">
+					<li>Network Effects</li>
+					<li>Economic Incentives</li>
+					<li>Vertex Covers</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-1449720.html">
+					<img src="http://pic1.aminer.org/picture/495/1225204868970.jpeg" alt="Lise Getoor" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-1449720.html">Lise Getoor</a>
+						<span class="pull-right">[<a href="1447913/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>32</i></b></li>
+					<li>citations: <b><i>5753</i></b></li>
+					<li>publications: <b><i>144</i></b></li>
+				</ul>
+				<p class='item-description'>Associate Professor, Computer Science Department, University of Maryland</p>
+				<ul class="item-topics inline">
+					<li>Knowledge Discovery</li>
+					<li>Active Learning</li>
+					<li>Gene Expression Data</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-945393.html">
+					<img src="http://pic1.aminer.org/picture/487/1225200757039.gif" alt="Jon Crowcroft" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-945393.html">Jon Crowcroft</a>
+						<span class="pull-right">[<a href="944507/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>44</i></b></li>
+					<li>citations: <b><i>16037</i></b></li>
+					<li>publications: <b><i>238</i></b></li>
+				</ul>
+				<p class='item-description'>Professor of Communications Systems, Computer Lab
+University of Cambridge</p>
+				<ul class="item-topics inline">
+					<li>Unclouded Vision</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-731580.html">
+					<img src="http://pic1.aminer.org/picture/03442/Cliff_Lampe_1305316724804.png" alt="Cliff Lampe" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-731580.html">Cliff Lampe</a>
+						<span class="pull-right">[<a href="730973/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>14</i></b></li>
+					<li>citations: <b><i>4003</i></b></li>
+					<li>publications: <b><i>37</i></b></li>
+				</ul>
+				<p class='item-description'>Assistant Professor , Michigan State University</p>
+				<ul class="item-topics inline">
+					<li>Social Network</li>
+					<li>Online Community</li>
+					<li>Social Capital</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-384049.html">
+					<img src="http://pic.aminer.org/picture/images/no_photo.jpg" alt="Katarzyna Musial" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-384049.html">Katarzyna Musial</a>
+						<span class="pull-right">[<a href="383801/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>9</i></b></li>
+					<li>citations: <b><i>258</i></b></li>
+					<li>publications: <b><i>36</i></b></li>
+				</ul>
+				<p class='item-description'>, </p>
+				<ul class="item-topics inline">
+					<li>Social Networks</li>
+					<li>Complex Network</li>
+					<li>Structural Changes</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-714353.html">
+					<img src="http://pic1.aminer.org/picture/486/1225200555332.jpeg" alt="Elena Ferrari" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-714353.html">Elena Ferrari</a>
+						<span class="pull-right">[<a href="713754/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>37</i></b></li>
+					<li>citations: <b><i>6526</i></b></li>
+					<li>publications: <b><i>158</i></b></li>
+				</ul>
+				<p class='item-description'>Professor, Department of Computer Science and Communication 
+University of Insubria
+</p>
+				<ul class="item-topics inline">
+					<li>International Conference</li>
+					<li>Data Streams</li>
+					<li>Access Control</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-195637.html">
+					<img src="http://pic1.aminer.org/picture/497/1225206588869.gif" alt="David Millen" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-195637.html">David Millen</a>
+						<span class="pull-right">[<a href="195533/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>26</i></b></li>
+					<li>citations: <b><i>2726</i></b></li>
+					<li>publications: <b><i>66</i></b></li>
+				</ul>
+				<p class='item-description'>Research Scientist, 	
+IBM Watson Research Center</p>
+				<ul class="item-topics inline">
+					<li>Collective Intelligence</li>
+					<li>Network Effect</li>
+					<li>Support Organization</li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://arnetminer.org/person/-1425831.html">
+					<img src="http://pic1.aminer.org/picture/00821/David_Liben_Nowell_1297510194558.jpg" alt="David Liben-Nowell" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://arnetminer.org/person/-1425831.html">David Liben-Nowell</a>
+						<span class="pull-right">[<a href="1424055/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>h-index: <b><i>14</i></b></li>
+					<li>citations: <b><i>6784</i></b></li>
+					<li>publications: <b><i>31</i></b></li>
+				</ul>
+				<p class='item-description'>Assistant professor, Department of Computer Science, Carleton College</p>
+				<ul class="item-topics inline">
+					<li>Efficiency Loss</li>
+					<li>Load-Balancing Games</li>
+					<li>Mediated Equilibria</li>
+				</ul>
+			</div>
+		</li>
+	</ul>
+	</div>
+	<div class="extra-results-pane span4">
+		<div class="extra-results">
+			<section>
+			<h4>Publications</h4>
+			<ul class="unstyled">
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-655339.html">Different Aspects of Social Network Analysis.</a>
+				</div>
+					<div class="extra-item-authors">Mohsen Jamali, H. Abolhassani</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:117</div>
+					<div class="extra-item-year">2006</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-674212.html">An integrated method for social network extraction.</a>
+				</div>
+					<div class="extra-item-authors">Hideaki Takeda, Takuichi Nishimura, Tom Hope</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:16</div>
+					<div class="extra-item-year">2006</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-13977.html">Spinning Multiple Social Networks for Semantic Web.</a>
+				</div>
+					<div class="extra-item-authors">Junichiro Mori, Ishizuka Mitsuru, Koiti Hasida</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:62</div>
+					<div class="extra-item-year">2006</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-435909.html">Privacy-Preserving Collaborative Social Networks.</a>
+				</div>
+					<div class="extra-item-authors">Lisa Singh, Gary Blosser, Christopher C. Yang</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:3</div>
+					<div class="extra-item-year">2008</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-762153.html">Social networking: Communication revolution or evolution?</a>
+				</div>
+					<div class="extra-item-authors">Heather Vaughn, Cheryl L. Coyle</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-year">2008</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-1261092.html">Social Area Networks: Data Networking of the People, by the People, for the People.</a>
+				</div>
+					<div class="extra-item-authors">Nadav Aharony, Andrew Lippman, D. P. Reed</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:3</div>
+					<div class="extra-item-year">2009</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-1319404.html">Discovering Organizational Structure in Dynamic Social Network.</a>
+				</div>
+					<div class="extra-item-authors">Jiangtao Qiu, Zhangxi Lin, Shaojie Qiao</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:9</div>
+					<div class="extra-item-year">2009</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-92400.html">Designing a wearable social network.</a>
+				</div>
+					<div class="extra-item-authors">T. Schiphorst, Yin He</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:8</div>
+					<div class="extra-item-year">2009</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-500097.html">Social networking on mobile environment.</a>
+				</div>
+					<div class="extra-item-authors">Arto Hamalainen, Jari Porras, Bishal Raj Karki</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:6</div>
+					<div class="extra-item-year">2008</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-89423.html">Recommending collaboration with social networks: a comparative evaluation.</a>
+				</div>
+					<div class="extra-item-authors">David W. McDonald</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:141</div>
+					<div class="extra-item-year">2003</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-96575.html">Mining social networks using heat diffusion processes for marketing candidates selection.</a>
+				</div>
+					<div class="extra-item-authors">Michael R. Lyu, Haixuan Yang, Irwin King</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:53</div>
+					<div class="extra-item-year">2008</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-730918.html">Exploiting Self-Reported Social Networks for Routing in Ubiquitous Computing Environments.</a>
+				</div>
+					<div class="extra-item-authors">Saleem Bhatti, Martin Bateman, G. Bigwood</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:28</div>
+					<div class="extra-item-year">2008</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-1255433.html">Analysis of a Real Online Social Network Using Semantic Web Frameworks.</a>
+				</div>
+					<div class="extra-item-authors">O. Corby, Guillaume Ereteo, Fabien Gandon</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:34</div>
+					<div class="extra-item-year">2009</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-1261230.html">Role of Game Models in Social Networks.</a>
+				</div>
+					<div class="extra-item-authors">Y. B. Reddy</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:3</div>
+					<div class="extra-item-year">2009</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-303755.html">Combining Behavioral and Social Network Data for Online Advertising.</a>
+				</div>
+					<div class="extra-item-authors">Rajesh Parekh, Abraham Bagherjeiran</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:17</div>
+					<div class="extra-item-year">2008</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-1257269.html">Intelligent Social Network Modeling.</a>
+				</div>
+					<div class="extra-item-authors">Ronald R. Yager</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:1</div>
+					<div class="extra-item-year">2009</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-242756.html">SISN: A Toolkit for Augmenting Expertise Sharing Via Social Networks.</a>
+				</div>
+					<div class="extra-item-authors">Jun Zhang, Yan Qu, Mark Ackerman</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:1</div>
+					<div class="extra-item-year">2007</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-708894.html">Measurement study and application of social network in the Maze P2P file-sharing system.</a>
+				</div>
+					<div class="extra-item-authors">Xiaoxiao Hou, Dai Yafei, Mao Yang</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:8</div>
+					<div class="extra-item-year">2006</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-1262303.html">The Role of Social Networking Services in eParticipation.</a>
+				</div>
+					<div class="extra-item-authors">Tom Nyvang, Jeremy Rose</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-year">2009</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://arnetminer.org/publication/-396954.html">Measurement and analysis of online social networks.</a>
+				</div>
+					<div class="extra-item-authors">Massimiliano Marcon, P. Krishna Gummadi, Peter Druschel</div>
+				<div class="extra-item-stats">
+					<div class="extra-item-citation pull-right">citations:1051</div>
+					<div class="extra-item-year">2007</div>
+				</div>
+				<div class="clearfix"></div>
+				</li>
+			</ul>
+			</section>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$('.btn-analysis').click(function() {
+		var query = $('.search-query', $(this).parent()).val();
+		window.location = "topictrends?q=" + encodeURIComponent(query);
+		return false;
+	});
+	$(document).ready(function() {
+		$('.result-item .item-img img').one('error', function() {
+			$(this).attr('src', 'http://static02.linkedin.com/scds/common/u/img/icon/icon_no_company_logo_100x60.png');
+		});
+	});
+</script>
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,131 @@
+<style type="text/css">
+    .topic-list li {
+        cursor: pointer;
+    }
+	.influence-pie {
+        font: 10px sans-serif;
+    }
+</style>
+<div class="row-fluid topic">
+    <div class="span4">
+        <ul class="topic-list nav nav-tabs nav-stacked">
+                <li data-index="0"><a>Active solid-state devices (e.g., transistors, solid-state diodes)</a></li>
+                <li data-index="1"><a>Electricity</a></li>
+                <li data-index="2"><a>Radiant energy</a></li>
+                <li data-index="3"><a>Electrical computers and digital processing systems</a></li>
+                <li data-index="4"><a>Semiconductor device manufacturing</a></li>
+        </ul>
+		
+            <div class="influence-pie" style="height: 250px; width: 250px;margin:0 auto"></div>
+       
+    </div>
+    <div class="span8">
+        <div class="topic-analysis index0" style="">
+			<div class="span4">
+            <p> Influenced by International Business Machines Corporation:
+            <ul>
+                <li><a href="http://www.pminer.org/company.do?m=viewCompany&amp;id=13">Intel Corporation</a>  </li>
+                <li><a href="http://www.pminer.org/company.do?m=viewCompany&amp;id=9">Fujitsu Limited</a>  </li>
+                <li><a href="http://www.pminer.org/company.do?m=viewCompany&amp;id=1344">Bull S.A.</a>  </li>
+                <li><a href="http://www.pminer.org/company.do?m=viewCompany&amp;id=81">LSI Logic Corporation</a>  </li>
+                <li><a href="http://www.pminer.org/company.do?m=viewCompany&amp;id=15704">Aeroflex UTMC Microelectronic Systems, Inc.</a>  </li>
+            </ul>
+            <p> Influencers:
+            <ul>
+                <li><a href="http://www.pminer.org/company.do?m=viewCompany&amp;id=14039">Progress Software Corporation</a>  </li>
+                <li><a href="http://www.pminer.org/company.do?m=viewCompany&amp;id=1003">Symantec Operating Corporation</a>  </li>
+                <li><a href="http://www.pminer.org/company.do?m=viewCompany&amp;id=2779">Red Hat, Inc.</a>  </li>
+                <li><a href="http://www.pminer.org/company.do?m=viewCompany&amp;id=12903">Auspex Systems, Inc.</a>  </li>
+                <li><a href="http://www.pminer.org/company.do?m=viewCompany&amp;id=9497">Quest Software, Inc.</a>  </li>
+            </ul>
+			</div>
+			<div class="table span4"></div>
+        </div>
+        <div class="topic-analysis index1" style="display:none">
+			<div class="span4">
+            <p> Influenced by International Business Machines Corporation:
+            <ul>
+                <li><a href="http://www.pminer.org/company.do?m=viewCompany&amp;id=13">Intel Corporation</a>  </li>
+                <li><a href="http://www.pminer.org/company.do?m=viewCompany&amp;id=9">Fujitsu Limited</a>  </li>
+                <li><a href="http://www.pminer.org/company.do?m=viewCompany&amp;id=1344">Bull S.A.</a>  </li>
+                <li><a href="http://www.pminer.org/company.do?m=viewCompany&amp;id=81">LSI Logic Corporation</a>  </li>
+                <li><a href="http://www.pminer.org/company.do?m=viewCompany&amp;id=6658">Symbios, Inc.</a>  </li>
+            </ul>
+            <p> Influencers:
+            <ul>
+                <li><a href="http://www.pminer.org/company.do?m=viewCompany&amp;id=15704">Aeroflex UTMC Microelectronic Systems, Inc.</a>  </li>
+                <li><a href="http://www.pminer.org/company.do?m=viewCompany&amp;id=2">Hitachi, Ltd.</a>  </li>
+                <li><a href="http://www.pminer.org/company.do?m=viewCompany&amp;id=19">Texas Instruments Incorporated</a>  </li>
+                <li><a href="http://www.pminer.org/company.do?m=viewCompany&amp;id=5">Kabushiki Kaisha Toshiba</a>  </li>
+                <li><a href="http://www.pminer.org/company.do?m=viewCompany&amp;id=11">Mitsubishi Denki Kabushiki Kaisha</a>  </li>
+            </ul>
+			</div>
+			<div class="table span4"></div>
+        </div>
+        <div class="topic-analysis index2" style="display:none">
+			<div class="span4">
+            <p> Influenced by International Business Machines Corporation:
+            <ul>
+                <li><a href="http://www.pminer.org/company.do?m=viewCompany&amp;id=13">Intel Corporation</a>  </li>
+                <li><a href="http://www.pminer.org/company.do?m=viewCompany&amp;id=9">Fujitsu Limited</a>  </li>
+                <li><a href="http://www.pminer.org/company.do?m=viewCompany&amp;id=1344">Bull S.A.</a>  </li>
+                <li><a href="http://www.pminer.org/company.do?m=viewCompany&amp;id=81">LSI Logic Corporation</a>  </li>
+                <li><a href="http://www.pminer.org/company.do?m=viewCompany&amp;id=2">Hitachi, Ltd.</a>  </li>
+            </ul>
+            <p> Influencers:
+            <ul>
+                <li><a href="http://www.pminer.org/company.do?m=viewCompany&amp;id=6658">Symbios, Inc.</a>  </li>
+                <li><a href="http://www.pminer.org/company.do?m=viewCompany&amp;id=3334">Hitachi Microcomputer Engineering Ltd.</a>  </li>
+                <li><a href="http://www.pminer.org/company.do?m=viewCompany&amp;id=2782">Prime Computer, Inc.</a>  </li>
+                <li><a href="http://www.pminer.org/company.do?m=viewCompany&amp;id=22">U.S. Philips Corporation</a>  </li>
+                <li><a href="http://www.pminer.org/company.do?m=viewCompany&amp;id=5381">Fujitsu Siemens Computers GmbH</a>  </li>
+            </ul>
+			</div>
+			<div class="table span4"></div>
+        </div>
+        <div class="topic-analysis index3" style="display:none">
+			<div class="span4">
+            <p> Influenced by International Business Machines Corporation:
+            <ul>
+                <li><a href="http://www.pminer.org/company.do?m=viewCompany&amp;id=1344">Bull S.A.</a>  </li>
+                <li><a href="http://www.pminer.org/company.do?m=viewCompany&amp;id=152">Digital Equipment Corporation</a>  </li>
+                <li><a href="http://www.pminer.org/company.do?m=viewCompany&amp;id=37">Sun Microsystems, Inc.</a>  </li>
+                <li><a href="http://www.pminer.org/company.do?m=viewCompany&amp;id=171">Unisys Corporation</a>  </li>
+                <li><a href="http://www.pminer.org/company.do?m=viewCompany&amp;id=1205">International Computers Limited</a>  </li>
+            </ul>
+            <p> Influencers:
+            <ul>
+                <li><a href="http://www.pminer.org/company.do?m=viewCompany&amp;id=583">Honeywell Information Systems Inc.</a>  </li>
+                <li><a href="http://www.pminer.org/company.do?m=viewCompany&amp;id=13138">Curl Corporation</a>  </li>
+                <li><a href="http://www.pminer.org/company.do?m=viewCompany&amp;id=10398">Franklin Electronic Publishers, Incorporated</a>  </li>
+                <li><a href="http://www.pminer.org/company.do?m=viewCompany&amp;id=13018">Lotus Development Corporation</a>  </li>
+                <li><a href="http://www.pminer.org/company.do?m=viewCompany&amp;id=58815">Zi Corporation of Canada, Inc.</a>  </li>
+            </ul>
+			</div>
+			<div class="table span4"></div>
+        </div>
+        <div class="topic-analysis index4" style="display:none">
+			<div class="span4">
+            <p> Influenced by International Business Machines Corporation:
+            <ul>
+                <li><a href="http://www.pminer.org/company.do?m=viewCompany&amp;id=13">Intel Corporation</a>  </li>
+                <li><a href="http://www.pminer.org/company.do?m=viewCompany&amp;id=9">Fujitsu Limited</a>  </li>
+                <li><a href="http://www.pminer.org/company.do?m=viewCompany&amp;id=1344">Bull S.A.</a>  </li>
+                <li><a href="http://www.pminer.org/company.do?m=viewCompany&amp;id=81">LSI Logic Corporation</a>  </li>
+                <li><a href="http://www.pminer.org/company.do?m=viewCompany&amp;id=15704">Aeroflex UTMC Microelectronic Systems, Inc.</a>  </li>
+            </ul>
+            <p> Influencers:
+            <ul>
+                <li><a href="http://www.pminer.org/company.do?m=viewCompany&amp;id=24963">American Semiconductor, Inc.</a>  </li>
+                <li><a href="http://www.pminer.org/company.do?m=viewCompany&amp;id=14757">Hitachi Haramachi Electronics Co., Ltd.</a>  </li>
+                <li><a href="http://www.pminer.org/company.do?m=viewCompany&amp;id=6081">Aptix Corporation</a>  </li>
+                <li><a href="http://www.pminer.org/company.do?m=viewCompany&amp;id=29741">Hitachi Haramachi Semi-Conductor, Ltd.</a>  </li>
+                <li><a href="http://www.pminer.org/company.do?m=viewCompany&amp;id=13406">National University Corporation Shizuoka University</a>  </li>
+            </ul>
+			</div>
+			<div class="table span4"></div>
+        </div>
+    </div>
+</div>
+
+

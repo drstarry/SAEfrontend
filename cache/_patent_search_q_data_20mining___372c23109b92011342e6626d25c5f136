@@ -1,0 +1,698 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="/static/bootstrap/css/bootstrap.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="/static/bootstrap/css/bootstrap-responsive.css" media="all" />
+    <script src="/static/jquery-2.0.1.min.js"></script>
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/d3.v3.min.js"></script>
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-inner">
+            <a class="brand" href="/">SAE</a>
+            <ul class="nav">
+                <li> <a href="/academic/search">Academic</a> </li>
+                <li> <a href="/patent/search">Patent</a> </li>
+                <li> <a href="/weibo/search">Weibo</a> </li>
+            </ul>
+        </div>
+    </div>
+    <div class="container">
+<style type="text/css">
+	.result-item {
+		padding: 4px 2px 4px 6px;
+		border-bottom: 1px dashed #f6f6f6;
+	}
+
+	.item-img {
+		max-width: 120px;
+		padding: 2px;
+		border: 1px solid #ddd;
+		border-radius: 4px;
+	}
+
+	.item-img:hover {
+		border-color: #0088cc;
+	}
+
+	.item-stats {
+		color: green;
+		font-size: 12px;
+	}
+
+	ul.item-stats > li {
+		margin-left: 0;
+		padding-left: 0;
+	}
+
+	.item-description {
+		color: grey;
+		margin: 0;
+	}
+
+	.item-topics > li {
+		padding-left: 0;
+		font-size: 11px;
+		border: solid 1px rgba(99, 99, 99, 0.18);
+	}
+
+	.extra-results {
+		line-height: 14px;
+	}
+
+	.extra-item {
+		padding: 4px 2px 4px 6px;
+		border-bottom: 1px dashed #f6f6f6;
+	}
+
+	.extra-item-title {
+		color: black;
+		font-size: 12px;
+	}
+
+	.extra-item-authors {
+		color: green;
+		font-size: 12px;
+	}
+
+	.extra-item-stats {
+		line-height: 14px;
+		height: 12px;
+		color: grey;
+	}
+
+</style>
+
+<form class="search form-search" method="get">
+	<fieldset>
+		<legend>Entity Search</legend>
+		<input type="text" class="search-query" name="q" placeholder="type in a topic, e.g. data mining" value="data mining"/>
+		<button class="btn btn-primary" type="submit">Search</button>
+			<button class="btn btn-analysis">Topic Trend</button>
+	</fieldset>
+</form>
+
+	<p>Hot queries:
+	<span><a href="search?q=data mining">data mining</a></span>
+	<span><a href="search?q=search engine">search engine</a></span>
+	<span><a href="search?q=mobile phone">mobile phone</a></span>
+
+<div class="row-fluid">
+	<div class="results span8">
+	<div class="results-summary pull-right">939 results, displaying 0 - 15</div>
+	<h4>Companies</h4>
+	<ul class="unstyled">
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://pminer.org/company.do?m=viewCompany&amp;id=1">
+					<img src="http://upload.wikimedia.org/wikipedia/commons/thumb/5/51/IBM_logo.svg/250px-IBM_logo.svg.png" alt="International Business Machines Corporation" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://pminer.org/company.do?m=viewCompany&amp;id=1">International Business Machines Corporation</a>
+						<span class="pull-right">[<a href="450650/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>patents: <b><i>71237</i></b></li>
+				</ul>
+				<p class='item-description'></p>
+				<ul class="item-topics inline">
+					<li></li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://pminer.org/company.do?m=viewCompany&amp;id=9">
+					<img src="http://upload.wikimedia.org/wikipedia/en/thumb/c/c5/Fujitsu_logo.svg/160px-Fujitsu_logo.svg.png" alt="Fujitsu Limited" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://pminer.org/company.do?m=viewCompany&amp;id=9">Fujitsu Limited</a>
+						<span class="pull-right">[<a href="450658/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>patents: <b><i>27957</i></b></li>
+				</ul>
+				<p class='item-description'></p>
+				<ul class="item-topics inline">
+					<li></li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://pminer.org/company.do?m=viewCompany&amp;id=7">
+					<img src="http://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Samsung_Logo.svg/200px-Samsung_Logo.svg.png" alt="Samsung Electronics Co., Ltd." style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://pminer.org/company.do?m=viewCompany&amp;id=7">Samsung Electronics Co., Ltd.</a>
+						<span class="pull-right">[<a href="450656/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>patents: <b><i>44383</i></b></li>
+				</ul>
+				<p class='item-description'></p>
+				<ul class="item-topics inline">
+					<li></li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://pminer.org/company.do?m=viewCompany&amp;id=2">
+					<img src="http://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Hitachi_logo.svg/250px-Hitachi_logo.svg.png" alt="Hitachi, Ltd." style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://pminer.org/company.do?m=viewCompany&amp;id=2">Hitachi, Ltd.</a>
+						<span class="pull-right">[<a href="450651/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>patents: <b><i>48560</i></b></li>
+				</ul>
+				<p class='item-description'></p>
+				<ul class="item-topics inline">
+					<li></li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://pminer.org/company.do?m=viewCompany&amp;id=3">
+					<img src="http://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Canon_wordmark.svg/250px-Canon_wordmark.svg.png" alt="Canon Kabushiki Kaisha" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://pminer.org/company.do?m=viewCompany&amp;id=3">Canon Kabushiki Kaisha</a>
+						<span class="pull-right">[<a href="450652/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>patents: <b><i>44648</i></b></li>
+				</ul>
+				<p class='item-description'></p>
+				<ul class="item-topics inline">
+					<li></li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://pminer.org/company.do?m=viewCompany&amp;id=4">
+					<img src="http://upload.wikimedia.org/wikipedia/en/1/1f/USTGLogo.jpg" alt="General Electric Company" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://pminer.org/company.do?m=viewCompany&amp;id=4">General Electric Company</a>
+						<span class="pull-right">[<a href="450653/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>patents: <b><i>36839</i></b></li>
+				</ul>
+				<p class='item-description'></p>
+				<ul class="item-topics inline">
+					<li></li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://pminer.org/company.do?m=viewCompany&amp;id=8">
+					<img src="http://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Panasonic_logo_%28Blue%29.svg/250px-Panasonic_logo_%28Blue%29.svg.png" alt="Matsushita Electric Industrial Co., Ltd." style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://pminer.org/company.do?m=viewCompany&amp;id=8">Matsushita Electric Industrial Co., Ltd.</a>
+						<span class="pull-right">[<a href="450657/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>patents: <b><i>36773</i></b></li>
+				</ul>
+				<p class='item-description'></p>
+				<ul class="item-topics inline">
+					<li></li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://pminer.org/company.do?m=viewCompany&amp;id=26">
+					<img src="http://upload.wikimedia.org/wikipedia/en/thumb/e/e1/Hp-logo-3d-291x300.svg/150px-Hp-logo-3d-291x300.svg.png" alt="Hewlett-Packard Development Company, L.P." style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://pminer.org/company.do?m=viewCompany&amp;id=26">Hewlett-Packard Development Company, L.P.</a>
+						<span class="pull-right">[<a href="450675/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>patents: <b><i>23374</i></b></li>
+				</ul>
+				<p class='item-description'></p>
+				<ul class="item-topics inline">
+					<li></li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://pminer.org/company.do?m=viewCompany&amp;id=6">
+					<img src="http://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Sony_logo.svg/220px-Sony_logo.svg.png" alt="Sony Corporation" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://pminer.org/company.do?m=viewCompany&amp;id=6">Sony Corporation</a>
+						<span class="pull-right">[<a href="450655/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>patents: <b><i>31597</i></b></li>
+				</ul>
+				<p class='item-description'></p>
+				<ul class="item-topics inline">
+					<li></li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://pminer.org/company.do?m=viewCompany&amp;id=14">
+					<img src="http://upload.wikimedia.org/wikipedia/en/a/a2/Westinghouse_Electric_Co._Logo.jpg" alt="Siemens Aktiengesellschaft" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://pminer.org/company.do?m=viewCompany&amp;id=14">Siemens Aktiengesellschaft</a>
+						<span class="pull-right">[<a href="450663/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>patents: <b><i>32587</i></b></li>
+				</ul>
+				<p class='item-description'></p>
+				<ul class="item-topics inline">
+					<li></li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://pminer.org/company.do?m=viewCompany&amp;id=10">
+					<img src="http://upload.wikimedia.org/wikipedia/en/thumb/3/33/NEC_logo.SVG/256px-NEC_logo.SVG.png" alt="NEC Corporation" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://pminer.org/company.do?m=viewCompany&amp;id=10">NEC Corporation</a>
+						<span class="pull-right">[<a href="450659/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>patents: <b><i>29171</i></b></li>
+				</ul>
+				<p class='item-description'></p>
+				<ul class="item-topics inline">
+					<li></li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://pminer.org/company.do?m=viewCompany&amp;id=17">
+					<img src="http://upload.wikimedia.org/wikipedia/en/thumb/d/db/Xerox_2008_Logo.png/200px-Xerox_2008_Logo.png" alt="Xerox Corporation" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://pminer.org/company.do?m=viewCompany&amp;id=17">Xerox Corporation</a>
+						<span class="pull-right">[<a href="450666/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>patents: <b><i>23760</i></b></li>
+				</ul>
+				<p class='item-description'></p>
+				<ul class="item-topics inline">
+					<li></li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://pminer.org/company.do?m=viewCompany&amp;id=13">
+					<img src="http://upload.wikimedia.org/wikipedia/en/thumb/c/c9/Intel-logo.svg/150px-Intel-logo.svg.png" alt="Intel Corporation" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://pminer.org/company.do?m=viewCompany&amp;id=13">Intel Corporation</a>
+						<span class="pull-right">[<a href="450662/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>patents: <b><i>20959</i></b></li>
+				</ul>
+				<p class='item-description'></p>
+				<ul class="item-topics inline">
+					<li></li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://pminer.org/company.do?m=viewCompany&amp;id=22">
+					<img src="http://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Philips_logo_new.svg/200px-Philips_logo_new.svg.png" alt="U.S. Philips Corporation" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://pminer.org/company.do?m=viewCompany&amp;id=22">U.S. Philips Corporation</a>
+						<span class="pull-right">[<a href="450671/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>patents: <b><i>24075</i></b></li>
+				</ul>
+				<p class='item-description'></p>
+				<ul class="item-topics inline">
+					<li></li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://pminer.org/company.do?m=viewCompany&amp;id=133">
+					<img src="" alt="Corning Incorporated" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://pminer.org/company.do?m=viewCompany&amp;id=133">Corning Incorporated</a>
+						<span class="pull-right">[<a href="450782/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>patents: <b><i>4158</i></b></li>
+				</ul>
+				<p class='item-description'></p>
+				<ul class="item-topics inline">
+					<li></li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://pminer.org/company.do?m=viewCompany&amp;id=191535">
+					<img src="" alt="Hydra-Static Systems Inc." style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://pminer.org/company.do?m=viewCompany&amp;id=191535">Hydra-Static Systems Inc.</a>
+						<span class="pull-right">[<a href="642184/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>patents: <b><i>1</i></b></li>
+				</ul>
+				<p class='item-description'></p>
+				<ul class="item-topics inline">
+					<li></li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://pminer.org/company.do?m=viewCompany&amp;id=19">
+					<img src="http://upload.wikimedia.org/wikipedia/en/thumb/9/95/Texas_Instruments_Logo.svg/280px-Texas_Instruments_Logo.svg.png" alt="Texas Instruments Incorporated" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://pminer.org/company.do?m=viewCompany&amp;id=19">Texas Instruments Incorporated</a>
+						<span class="pull-right">[<a href="450668/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>patents: <b><i>21025</i></b></li>
+				</ul>
+				<p class='item-description'></p>
+				<ul class="item-topics inline">
+					<li></li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://pminer.org/company.do?m=viewCompany&amp;id=12">
+					<img src="http://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Kodak_logo.svg/230px-Kodak_logo.svg.png" alt="Eastman Kodak Company" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://pminer.org/company.do?m=viewCompany&amp;id=12">Eastman Kodak Company</a>
+						<span class="pull-right">[<a href="450661/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>patents: <b><i>20693</i></b></li>
+				</ul>
+				<p class='item-description'></p>
+				<ul class="item-topics inline">
+					<li></li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://pminer.org/company.do?m=viewCompany&amp;id=15">
+					<img src="http://upload.wikimedia.org/wikipedia/en/thumb/d/d0/Micron.png/210px-Micron.png" alt="Micron Technology, Inc." style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://pminer.org/company.do?m=viewCompany&amp;id=15">Micron Technology, Inc.</a>
+						<span class="pull-right">[<a href="450664/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>patents: <b><i>20653</i></b></li>
+				</ul>
+				<p class='item-description'></p>
+				<ul class="item-topics inline">
+					<li></li>
+				</ul>
+			</div>
+		</li>
+		<li class="result-item row-fluid">
+			<div class="item-img span2">
+				<a href="http://pminer.org/company.do?m=viewCompany&amp;id=35581">
+					<img src="" alt="Scot Incorporated" style="width: 100%; height: auto;"/>
+				</a>
+			</div>
+			<div class="item-content span10">
+				<div class="item-name">
+					<a href="http://pminer.org/company.do?m=viewCompany&amp;id=35581">Scot Incorporated</a>
+						<span class="pull-right">[<a href="486230/influence">Influence Analysis</a>]</span>
+				</div>
+				<ul class="item-stats inline">
+					<li>patents: <b><i>12</i></b></li>
+				</ul>
+				<p class='item-description'></p>
+				<ul class="item-topics inline">
+					<li></li>
+				</ul>
+			</div>
+		</li>
+	</ul>
+	</div>
+	<div class="extra-results-pane span4">
+		<div class="extra-results">
+			<section>
+			<h4>Patents</h4>
+			<ul class="unstyled">
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://patft1.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&amp;Sect2=HITOFF&amp;d=PALL&amp;p=1&amp;u=/netahtml/PTO/srchnum.htm&amp;r=1&amp;f=G&amp;l=50&amp;s1=%22+7853623+%22.PN.&amp;OS=PN/%22+7853623+%22&amp;RS=PN/%22+7853623">Data mining system, data mining method and data retrieval system</a>
+				</div>
+				<div class="extra-item-stats">
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://patft1.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&amp;Sect2=HITOFF&amp;d=PALL&amp;p=1&amp;u=/netahtml/PTO/srchnum.htm&amp;r=1&amp;f=G&amp;l=50&amp;s1=%22+8140584+%22.PN.&amp;OS=PN/%22+8140584+%22&amp;RS=PN/%22+8140584">Adaptive data classification for data mining</a>
+				</div>
+				<div class="extra-item-stats">
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://patft1.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&amp;Sect2=HITOFF&amp;d=PALL&amp;p=1&amp;u=/netahtml/PTO/srchnum.htm&amp;r=1&amp;f=G&amp;l=50&amp;s1=%22+7827122+%22.PN.&amp;OS=PN/%22+7827122+%22&amp;RS=PN/%22+7827122">Data mining of unfiltered controller data</a>
+				</div>
+				<div class="extra-item-stats">
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://patft1.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&amp;Sect2=HITOFF&amp;d=PALL&amp;p=1&amp;u=/netahtml/PTO/srchnum.htm&amp;r=1&amp;f=G&amp;l=50&amp;s1=%22+7627620+%22.PN.&amp;OS=PN/%22+7627620+%22&amp;RS=PN/%22+7627620">Data-centric automatic data mining</a>
+				</div>
+				<div class="extra-item-stats">
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://patft1.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&amp;Sect2=HITOFF&amp;d=PALL&amp;p=1&amp;u=/netahtml/PTO/srchnum.htm&amp;r=1&amp;f=G&amp;l=50&amp;s1=%22+8099305+%22.PN.&amp;OS=PN/%22+8099305+%22&amp;RS=PN/%22+8099305">Dental data mining</a>
+				</div>
+				<div class="extra-item-stats">
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://patft1.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&amp;Sect2=HITOFF&amp;d=PALL&amp;p=1&amp;u=/netahtml/PTO/srchnum.htm&amp;r=1&amp;f=G&amp;l=50&amp;s1=%22+7987099+%22.PN.&amp;OS=PN/%22+7987099+%22&amp;RS=PN/%22+7987099">Dental data mining</a>
+				</div>
+				<div class="extra-item-stats">
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://patft1.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&amp;Sect2=HITOFF&amp;d=PALL&amp;p=1&amp;u=/netahtml/PTO/srchnum.htm&amp;r=1&amp;f=G&amp;l=50&amp;s1=%22+7945850+%22.PN.&amp;OS=PN/%22+7945850+%22&amp;RS=PN/%22+7945850">Data mining and reporting</a>
+				</div>
+				<div class="extra-item-stats">
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://patft1.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&amp;Sect2=HITOFF&amp;d=PALL&amp;p=1&amp;u=/netahtml/PTO/srchnum.htm&amp;r=1&amp;f=G&amp;l=50&amp;s1=%22+7930197+%22.PN.&amp;OS=PN/%22+7930197+%22&amp;RS=PN/%22+7930197">Personal data mining</a>
+				</div>
+				<div class="extra-item-stats">
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://patft1.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&amp;Sect2=HITOFF&amp;d=PALL&amp;p=1&amp;u=/netahtml/PTO/srchnum.htm&amp;r=1&amp;f=G&amp;l=50&amp;s1=%22+7003511+%22.PN.&amp;OS=PN/%22+7003511+%22&amp;RS=PN/%22+7003511">Mining and characterization of data</a>
+				</div>
+				<div class="extra-item-stats">
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://patft1.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&amp;Sect2=HITOFF&amp;d=PALL&amp;p=1&amp;u=/netahtml/PTO/srchnum.htm&amp;r=1&amp;f=G&amp;l=50&amp;s1=%22+6665644+%22.PN.&amp;OS=PN/%22+6665644+%22&amp;RS=PN/%22+6665644">Conversational data mining</a>
+				</div>
+				<div class="extra-item-stats">
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://patft1.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&amp;Sect2=HITOFF&amp;d=PALL&amp;p=1&amp;u=/netahtml/PTO/srchnum.htm&amp;r=1&amp;f=G&amp;l=50&amp;s1=%22+7185279+%22.PN.&amp;OS=PN/%22+7185279+%22&amp;RS=PN/%22+7185279">Data mining and reporting</a>
+				</div>
+				<div class="extra-item-stats">
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://patft1.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&amp;Sect2=HITOFF&amp;d=PALL&amp;p=1&amp;u=/netahtml/PTO/srchnum.htm&amp;r=1&amp;f=G&amp;l=50&amp;s1=%22+6915282+%22.PN.&amp;OS=PN/%22+6915282+%22&amp;RS=PN/%22+6915282">Autonomous data mining</a>
+				</div>
+				<div class="extra-item-stats">
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://patft1.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&amp;Sect2=HITOFF&amp;d=PALL&amp;p=1&amp;u=/netahtml/PTO/srchnum.htm&amp;r=1&amp;f=G&amp;l=50&amp;s1=%22+7617078+%22.PN.&amp;OS=PN/%22+7617078+%22&amp;RS=PN/%22+7617078">Patient data mining</a>
+				</div>
+				<div class="extra-item-stats">
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://patft1.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&amp;Sect2=HITOFF&amp;d=PALL&amp;p=1&amp;u=/netahtml/PTO/srchnum.htm&amp;r=1&amp;f=G&amp;l=50&amp;s1=%22+7401066+%22.PN.&amp;OS=PN/%22+7401066+%22&amp;RS=PN/%22+7401066">Correlation of end-of-line data mining with process tool data mining</a>
+				</div>
+				<div class="extra-item-stats">
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://patft1.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&amp;Sect2=HITOFF&amp;d=PALL&amp;p=1&amp;u=/netahtml/PTO/srchnum.htm&amp;r=1&amp;f=G&amp;l=50&amp;s1=%22+7069197+%22.PN.&amp;OS=PN/%22+7069197+%22&amp;RS=PN/%22+7069197">Factor analysis/retail data mining segmentation in a data mining system</a>
+				</div>
+				<div class="extra-item-stats">
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://patft1.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&amp;Sect2=HITOFF&amp;d=PALL&amp;p=1&amp;u=/netahtml/PTO/srchnum.htm&amp;r=1&amp;f=G&amp;l=50&amp;s1=%22+6510457+%22.PN.&amp;OS=PN/%22+6510457+%22&amp;RS=PN/%22+6510457">Data analysis method and apparatus for data mining</a>
+				</div>
+				<div class="extra-item-stats">
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://patft1.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&amp;Sect2=HITOFF&amp;d=PALL&amp;p=1&amp;u=/netahtml/PTO/srchnum.htm&amp;r=1&amp;f=G&amp;l=50&amp;s1=%22+7912812+%22.PN.&amp;OS=PN/%22+7912812+%22&amp;RS=PN/%22+7912812">Smart data caching using data mining</a>
+				</div>
+				<div class="extra-item-stats">
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://patft1.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&amp;Sect2=HITOFF&amp;d=PALL&amp;p=1&amp;u=/netahtml/PTO/srchnum.htm&amp;r=1&amp;f=G&amp;l=50&amp;s1=%22+7882128+%22.PN.&amp;OS=PN/%22+7882128+%22&amp;RS=PN/%22+7882128">Data mining by determining patterns in input data</a>
+				</div>
+				<div class="extra-item-stats">
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://patft1.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&amp;Sect2=HITOFF&amp;d=PALL&amp;p=1&amp;u=/netahtml/PTO/srchnum.htm&amp;r=1&amp;f=G&amp;l=50&amp;s1=%22+7870149+%22.PN.&amp;OS=PN/%22+7870149+%22&amp;RS=PN/%22+7870149">Data mining method for finding deviations in data</a>
+				</div>
+				<div class="extra-item-stats">
+				</div>
+				<div class="clearfix"></div>
+				</li>
+				<li class="extra-item">
+				<div>
+					<a class="extra-item-title" href="http://patft1.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&amp;Sect2=HITOFF&amp;d=PALL&amp;p=1&amp;u=/netahtml/PTO/srchnum.htm&amp;r=1&amp;f=G&amp;l=50&amp;s1=%22+7024402+%22.PN.&amp;OS=PN/%22+7024402+%22&amp;RS=PN/%22+7024402">Spatial data mining method, spatial data mining apparatus and storage medium</a>
+				</div>
+				<div class="extra-item-stats">
+				</div>
+				<div class="clearfix"></div>
+				</li>
+			</ul>
+			</section>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$('.btn-analysis').click(function() {
+		var query = $('.search-query', $(this).parent()).val();
+		window.location = "topictrends?q=" + encodeURIComponent(query);
+		return false;
+	});
+	$(document).ready(function() {
+		$('.result-item .item-img img').one('error', function() {
+			$(this).attr('src', 'http://static02.linkedin.com/scds/common/u/img/icon/icon_no_company_logo_100x60.png');
+		});
+	});
+</script>
+
+    </div>
+
+</body>
+</html>
