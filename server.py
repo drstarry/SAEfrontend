@@ -116,11 +116,12 @@ def graph(pid):
 @route('/enron/search/mail-list')
 @view('mail-list')
 def maillist():
-    usrid = int(request.query.q)
+    usrid = int(request.query.q1)
     cursor.execute("select * from people where (personid = (%d))" % (usrid))
     person = cursor.fetchall()
     # cursor.execute("select mail")
 
+    #get 
     usr = []
     for i in person:
         print i
@@ -130,9 +131,18 @@ def maillist():
     offset = int(request.query.offset or 0)
     count = int(request.query.count or 20)
     cursor.execute("select * from alledge where sid = (%d) OR rid = (%d) order by messagedt " % (usrid,usrid))
-
     record = cursor.fetchall()
 
+    allsender = []
+    allrecipient = []
+    for row in record:
+        allsender.append(row[3])
+        allrecipient.append(row[6])
+    allsender = set(allsender)
+    allrecipient = set(allrecipient)
+    s_record = [[]*255000 for row in range(255000)]
+    r_record = [[]*255000 for row in range(255000)]
+    
     mail_list = []
     sender = [[]*255000 for row in range(255000)]
     recipient = [[]*255000 for row in range(255000)]
@@ -180,14 +190,20 @@ def maillist():
                         ])
 
             })
-
+        
+    for row in mail_list:
+        for p in allsender:
+            if p in row[3]:
+                s_record.append(row)
+        for p in allrecipient:
+            if p in row[4]:
+                r_record.append(row)
+                
     return dict(
+	
         query = usrid,
-        # total_count = len(mail_list),
-        # offset = offset,
-        # count = count,
         name = name+"<"+email+">" ,
-        results = [
+        results1 = [
                 dict(
                     link = "/enron/mail/%s" % x["mailid"],
                     subject = x["subject"] ,
@@ -196,7 +212,25 @@ def maillist():
                     recipients = x["recipients"],
                     date = x["date"]
                 )for x in mail_list
-                ]
+                ],
+	result2 = [
+            dict(
+                    link = "/enron/mail/%s" % x["mailid"],
+                    subject = x["subject"] ,
+                    # body = x["body"],
+                    sender = x["sender"] ,
+                    recipients = x["recipients"],
+                    date = x["date"]
+                )for x in s_record],
+	result3 = [
+            dict(
+                    link = "/enron/mail/%s" % x["mailid"],
+                    subject = x["subject"] ,
+                    # body = x["body"],
+                    sender = x["sender"] ,
+                    recipients = x["recipients"],
+                    date = x["date"]
+                )for x in r_record]
             )
 
 @route('/enron/search')

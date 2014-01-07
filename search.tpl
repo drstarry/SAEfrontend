@@ -106,7 +106,7 @@
 			</div>
 			<div class="item-content span10">
 				<div class="item-name">
-					<a href="/enron/search/mail-list?q={{item['id']}}">{{item['name']}}</a>
+					<a href="/enron/search/mail-list?q1={{item['id']}}&q2=''">{{item['name']}}</a>
 					%if 'integrated' in item:
 						%for k, v in item['integrated'].items():
 						<span>[<a href="/enron/search/mail-list?q={{item['id']}}">{{k}}</a>]</span>

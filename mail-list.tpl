@@ -60,10 +60,20 @@
   <div class="panel panel-default">
   
   <!-- Default panel contents -->
-  <div class="panel-heading"><h2><legend>Mail timeline of {{name}}</legend></div>
-       
-    %if len(results)!= 0:
-   <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+  <div class="panel-heading"><h2><legend><span class="glyphicon glyphicon-envelope"></span> Mail timeline of {{name}}</legend></div>
+  Sorted by
+ 
+ <ul class="nav nav-tabs">
+  <li><a href="#Date" data-toggle="tab">Date</a></li>
+  <li><a href="#Senders" data-toggle="tab">Senders</a></li>
+  <li><a href="#Recipients" data-toggle="tab">Recipients</a></li>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+  <div class="tab-pane active" id="Date">
+    %if len(results1)!= 0:
+   <table cellpadding="0" cellspacing="0" border="0" class="display" id="t1">
                        <thead>
                      <tr class="active" >
                        
@@ -75,7 +85,7 @@
                     </thead>
 
                     <tbody>
-                        %for x,item in enumerate(results):
+                        %for x,item in enumerate(results1):
                         <tr>
                            
                             <td>{{item['date']}}</td>
@@ -87,7 +97,106 @@
                     </tbody>
 
     </table>
-    %end
+    %end	
+
+  </div>
+  
+  <div class="tab-pane" id="Senders">
+  <div class="panel-group"  id="accordion">
+    %for x,p in enumerate({{result2}}):
+	<div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="panel-title">
+                <a href="#panel{{x}}" class="panel-toggle" data-toggle="collapse" data-parent="#accordion">
+                    From:  <span class="badge badge-important">{{sender[x]}}</span>
+                </a>
+            </div>
+        </div>
+        <div id="panel{{x}}" class="panel-collapse collapse in">
+            <div class="panel-body">
+               
+   <table cellpadding="0" cellspacing="0" border="0" class="display" id="t2">
+                       <thead>
+                     <tr class="active" >
+                       
+                        <th>Date</th>
+                        <th>Subject</th>
+                       
+                        <th>To</th>
+                     </tr>
+                    </thead>
+
+                    <tbody>
+                        %for x,item in enumerate(p):
+                        <tr>
+                           
+                            <td>{{item['date']}}</td>
+                            <td><a href="{{item['link']}}">{{item['subject']}}</a></td>
+                            
+                            <td>{{item['recipients']}}</td>
+                        </tr>
+                        %end
+                    </tbody>
+
+    </table>
+   
+            </div>
+        </div>
+    </div>
+	%end
+	</div>
+	
+  </div>
+  
+  <div class="tab-pane" id="Recipients">
+    <div class="panel-group"  id="accordion">
+    %for x,p in enumerate({{result3}}):
+	<div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="panel-title">
+                <a href="#panel{{x}}" class="panel-toggle" data-toggle="collapse" data-parent="#accordion">
+                    To:  <span class="badge badge-important">{{recipient[x]}}</span>
+                </a>
+            </div>
+        </div>
+        <div id="panel{{x}}" class="panel-collapse collapse in">
+            <div class="panel-body">
+                
+   <table cellpadding="0" cellspacing="0" border="0" class="display" id="t3">
+                       <thead>
+                     <tr class="active" >
+                       
+                        <th>Date</th>
+                        <th>Subject</th>
+                        <th>From</th>
+                        
+                     </tr>
+                    </thead>
+
+                    <tbody>
+                        %for item in p:
+                        <tr>
+                           
+                            <td>{{item['date']}}</td>
+                            <td><a href="{{item['link']}}">{{item['subject']}}</a></td>
+                            <td>{{item['sender']}}</td>
+                           
+                        </tr>
+                        %end
+                    </tbody>
+
+    </table>
+    
+            </div>
+        </div>
+    </div>
+	%end
+	</div>
+  </div>
+
+ </div>
+
+
 
 
    </div>
@@ -111,10 +220,27 @@
         });
     });
     $(document).ready(function(){
-    $('#example').dataTable(
+    $('#t1').dataTable(
 	
          );
-});
+	});
+	 $(document).ready(function(){
+    $('#t2').dataTable(
+	
+         );
+	});
+	 $(document).ready(function(){
+    $('#t3').dataTable(
+	
+         );
+	});
+	$('.collapse').collapse({
+	toggle: true,parent:'#accordion'
+	})
+	$('.panel-heading').on('click', function () {
+		var self = this;
+		$(self).nextAll().eq(0).collapse("show");
+	})
 </script>
 
 %rebase layout
