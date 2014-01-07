@@ -102,20 +102,20 @@
   </div>
   
   <div class="tab-pane" id="Senders">
-  <div class="panel-group"  id="accordion">
-    %for x,p in enumerate({{result2}}):
+  <div class="panel-group"  id="accordion1">
+    %for x,p in enumerate(results2):
 	<div class="panel panel-default">
         <div class="panel-heading">
             <div class="panel-title">
-                <a href="#panel{{x}}" class="panel-toggle" data-toggle="collapse" data-parent="#accordion">
-                    From:  <span class="badge badge-important">{{sender[x]}}</span>
+                <a href="#panel{{x}}" class="panel-toggle" data-toggle="collapse" data-parent="#accordion1">
+                    From:  {{sender[x]}}
                 </a>
             </div>
         </div>
         <div id="panel{{x}}" class="panel-collapse collapse in">
             <div class="panel-body">
                
-   <table cellpadding="0" cellspacing="0" border="0" class="display" id="t2">
+   <table >
                        <thead>
                      <tr class="active" >
                        
@@ -127,15 +127,15 @@
                     </thead>
 
                     <tbody>
-                        %for x,item in enumerate(p):
+					%for item in p:
                         <tr>
                            
                             <td>{{item['date']}}</td>
-                            <td><a href="{{item['link']}}">{{item['subject']}}</a></td>
+                            <td><a href="{{p['link']}}">{{item['subject']}}</a></td>
                             
                             <td>{{item['recipients']}}</td>
                         </tr>
-                        %end
+                    %end   
                     </tbody>
 
     </table>
@@ -149,20 +149,20 @@
   </div>
   
   <div class="tab-pane" id="Recipients">
-    <div class="panel-group"  id="accordion">
-    %for x,p in enumerate({{result3}}):
+    <div class="panel-group"  id="accordion2">
+    %for x,p in enumerate(results3):
 	<div class="panel panel-default">
         <div class="panel-heading">
             <div class="panel-title">
-                <a href="#panel{{x}}" class="panel-toggle" data-toggle="collapse" data-parent="#accordion">
-                    To:  <span class="badge badge-important">{{recipient[x]}}</span>
+                <a href="#panel{{x}}" class="panel-toggle" data-toggle="collapse" data-parent="#accordion2">
+                    To:  {{recipient[x]}}
                 </a>
             </div>
         </div>
         <div id="panel{{x}}" class="panel-collapse collapse in">
             <div class="panel-body">
                 
-   <table cellpadding="0" cellspacing="0" border="0" class="display" id="t3">
+   <table >
                        <thead>
                      <tr class="active" >
                        
@@ -172,9 +172,9 @@
                         
                      </tr>
                     </thead>
-
+					
                     <tbody>
-                        %for item in p:
+                    %for item in p:   
                         <tr>
                            
                             <td>{{item['date']}}</td>
@@ -182,9 +182,9 @@
                             <td>{{item['sender']}}</td>
                            
                         </tr>
-                        %end
+                    %end  
                     </tbody>
-
+					
     </table>
     
             </div>
@@ -235,7 +235,14 @@
          );
 	});
 	$('.collapse').collapse({
-	toggle: true,parent:'#accordion'
+	toggle: true,parent:'#accordion1'
+	})
+	$('.panel-heading').on('click', function () {
+		var self = this;
+		$(self).nextAll().eq(0).collapse("show");
+	})
+	$('.collapse').collapse({
+	toggle: true,parent:'#accordion2'
 	})
 	$('.panel-heading').on('click', function () {
 		var self = this;

@@ -37,6 +37,7 @@ def index(name):
 
 @route('/')
 def index():
+    print "hello"
     return template('index')
 
 @route('/enron/network/')
@@ -139,8 +140,10 @@ def maillist():
         allsender.append(row[3])
         allrecipient.append(row[6])
     allsender = set(allsender)
+    print "123",allsender
     allrecipient = set(allrecipient)
     s_record = [[]*255000 for row in range(255000)]
+	print s_
     r_record = [[]*255000 for row in range(255000)]
     
     mail_list = []
@@ -151,7 +154,7 @@ def maillist():
     subject = []
     mailid = []
     date = []
-    print len(record)
+    
     for x,row in enumerate(record):
         # print x,row[2]
         if row[0] not in mailid:
@@ -189,18 +192,23 @@ def maillist():
                     " %s <%s>\n" %(s["name"],s["email"])for s in recipient[idx]
                         ])
 
-            })
-        
-    for row in mail_list:
-        for p in allsender:
-            if p in row[3]:
-                s_record.append(row)
-        for p in allrecipient:
-            if p in row[4]:
-                r_record.append(row)
-                
+            })    
+
+    for x,p in enumerate(allsender):
+        for row in mail_list:
+            if p in allsender:
+                s_record[x].append(row)
+                print row
+
+    for x,p in enumerate(allrecipient):
+        for row in mail_list:
+            if p in allrecipient:
+                r_record[x].append(row)
+
+    print allsender
     return dict(
-	
+	sender = allsender,
+        recipient = allrecipient,
         query = usrid,
         name = name+"<"+email+">" ,
         results1 = [
@@ -213,7 +221,7 @@ def maillist():
                     date = x["date"]
                 )for x in mail_list
                 ],
-	result2 = [
+	results2 = [
             dict(
                     link = "/enron/mail/%s" % x["mailid"],
                     subject = x["subject"] ,
@@ -221,8 +229,9 @@ def maillist():
                     sender = x["sender"] ,
                     recipients = x["recipients"],
                     date = x["date"]
-                )for x in s_record],
-	result3 = [
+                )for x in s_record
+				],
+	results3 = [
             dict(
                     link = "/enron/mail/%s" % x["mailid"],
                     subject = x["subject"] ,
@@ -230,7 +239,8 @@ def maillist():
                     sender = x["sender"] ,
                     recipients = x["recipients"],
                     date = x["date"]
-                )for x in r_record]
+                )for x in r_record
+				]
             )
 
 @route('/enron/search')
@@ -309,7 +319,7 @@ def static(path):
 if len(sys.argv) > 1:
     port = int(sys.argv[1])
 else:
-    port = 8088 
+    port = 8086 
 
 print port
 run(server='auto', host='localhost', port=port, reloader=True, debug=True)
