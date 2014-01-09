@@ -76,112 +76,124 @@
 		<input type="text" class="search-query" name="q" placeholder="type in a topic, e.g. data mining" value="{{query}}"/>
 		<button class="btn btn-primary" type="submit">Search</button>
 		%if get("trends_enabled", False):
-			<button class="btn btn-analysis">Topic Trend</button>
+		<button class="btn btn-analysis">Topic Trend</button>
 		%end
 	</fieldset>
 </form>
-
 %if defined("hotqueries"):
-	<p>Hot queries:
+<p>
+	Hot queries:
 	%for i, hotquery in enumerate(hotqueries):
 	{{',' if i > 0 else ''}}
-	<span><a href="search?q={{hotquery}}">{{hotquery}}</a></span>
+	<span>
+		<a href="search?q={{hotquery}}">{{hotquery}}</a>
+	</span>
 	%end
 %end
-
-<div class="row-fluid">
-	<div class="results span8">
-	<div class="results-summary pull-right">
-		{{total_count}}+ results, displaying {{offset+1}} - {{offset+count}}
-		<a href="?q={{query}}&offset={{offset+count}}&count={{count}}">more</a>
-	</div>
-	<h4>{{get("results_title", "Results")}}</h4>
-	<ul class="list-unstyled">
-	%for item in results:
-		<li class="result-item row-fluid">
-			<div class="item-img span2">
-				<a href="{{item['url']}}">
-					<img src="{{item['imgurl']}}" alt="{{item['name']}}" style="width: 100%; height: auto;"/>
-				</a>
+	<div class="row-fluid">
+		<div class="results span8">
+			<div class="results-summary pull-right">
+				{{total_count}}+ results, displaying {{offset+1}} - {{offset+count}}
+				<a href="?q={{query}}&offset={{offset+count}}&count={{count}}">more</a>
 			</div>
-			<div class="item-content span10">
-				<div class="item-name">
-					<a href="/enron/search/mail-list?q1={{item['id']}}&q2=''">{{item['name']}}</a>
-					%if 'integrated' in item:
+			<h4>{{get("results_title", "Results")}}</h4>
+			<ul class="list-unstyled">
+				%for item in results:
+				<li class="result-item row-fluid">
+					<div class="item-img span2">
+						<a href="{{item['url']}}">
+							<img src="{{item['imgurl']}}" alt="{{item['name']}}" style="width: 100%; height: auto;"/>
+						</a>
+					</div>
+					<div class="item-content span10">
+						<div class="item-name">
+							<a href="/enron/search/mail-list?q1={{item['id']}}">{{item['name']}}</a>
+							%if 'integrated' in item:
 						%for k, v in item['integrated'].items():
-						<span>[<a href="/enron/search/mail-list?q={{item['id']}}">{{k}}</a>]</span>
-						%end
+							<span>
+								[
+								<a href="/enron/search/mail-list?q={{item['id']}}">{{k}}</a>
+								]
+							</span>
+							%end
 					%end
 					%if get('influence_enabled', False):
-						<span class="pull-right">[<a href="{{item['id']}}/influence">Influence Analysis</a>]</span>
-					%end
+							<span class="pull-right">
+								[
+								<a href="{{item['id']}}/influence">Influence Analysis</a>
+								]
+							</span>
+							%end
+						</div>
+						<!-- 		<ul class="item-stats inline">
+						%for k, v in item['stats'].items():
+						<li>
+							{{k.lower()}}: <b><i>{{v}}</i></b>
+						</li>
+						%end
+					</ul>
+					-->
+					<p class='item-description'>{{item['description']}}</p>
+					<ul class="item-topics inline">
+						%for t in item['topics']:
+						<li>{{t}}</li>
+						%end
+					</ul>
 				</div>
-		<!-- 		<ul class="item-stats inline">
-				%for k, v in item['stats'].items():
-					<li>{{k.lower()}}: <b><i>{{v}}</i></b></li>
-				%end
-				</ul> -->
-				<p class='item-description'>{{item['description']}}</p>
-				<ul class="item-topics inline">
-				%for t in item['topics']:
-					<li>{{t}}</li>
-				%end
-				</ul>
-			</div>
-		</li>
-	%end
-	</ul>
+			</li>
+			%end
+		</ul>
 	</div>
 	%if defined("extra_results_list"):
 	<div class="extra-results-pane span4">
 		%for extra_results in extra_results_list:
 		<div class="extra-results">
 			<section>
-			<h4>{{extra_results['title']}}</h4>
-			<ul class="list-unstyled">
-			%for item in extra_results['items']:
-				<li class="extra-item">
-				<div>
-				%if item['id']:
-					<a class="extra-item-title" href="{{item['id']}}">{{item['text']}}</a>
-				%else:
-					<span class="extra-item-title">
-					%if len(item.get('user', [])) > 0:
-						<a href="http://weibo.com/u/{{item['user'][0].url}}">@{{item['user'][0].title}}</a>：
+				<h4>{{extra_results['title']}}</h4>
+				<ul class="list-unstyled">
+					%for item in extra_results['items']:
+					<li class="extra-item">
+						<div>
+							%if item['id']:
+							<a class="extra-item-title" href="{{item['id']}}">{{item['text']}}</a>
+							%else:
+							<span class="extra-item-title">
+								%if len(item.get('user', [])) > 0:
+								<a href="http://weibo.com/u/{{item['user'][0].url}}">@{{item['user'][0].title}}</a>
+								：
 					%end
 					{{item['text']}}
-					</span>
-				%end
-				</div>
-				%if 'authors' in item:
-					<div class="extra-item-authors">{{', '.join([a.title for a in item['authors'][:3]])}}</div>
-				%end
-				<div class="extra-item-stats">
-					%stats = item.get('stats', {})
+							</span>
+							%end
+						</div>
+						%if 'authors' in item:
+						<div class="extra-item-authors">{{', '.join([a.title for a in item['authors'][:3]])}}</div>
+						%end
+						<div class="extra-item-stats">
+							%stats = item.get('stats', {})
 					%if stats.get('citation', -1) > 0:
-					<div class="extra-item-stat pull-right">citations:{{stats['citation']}}</div>
-					%end
+							<div class="extra-item-stat pull-right">citations:{{stats['citation']}}</div>
+							%end
 					%if stats.get('Reposts', 0) > 0:
-					<div class="extra-item-stat pull-right">reposts:{{stats['Reposts']}}</div>
-					%end
+							<div class="extra-item-stat pull-right">reposts:{{stats['Reposts']}}</div>
+							%end
 					%if stats.get('Comments', 0) > 0:
-					<div class="extra-item-stat pull-right">comments:{{stats['Comments']}}</div>
-					%end
+							<div class="extra-item-stat pull-right">comments:{{stats['Comments']}}</div>
+							%end
 					%if 'year' in stats:
-					<div class="extra-item-year">{{stats['year']}}</div>
+							<div class="extra-item-year">{{stats['year']}}</div>
+							%end
+						</div>
+						<div class="clearfix"></div>
+					</li>
 					%end
-				</div>
-				<div class="clearfix"></div>
-				</li>
-			%end
-			</ul>
+				</ul>
 			</section>
 		</div>
 		%end
 	</div>
 	%end
 </div>
-
 <script type="text/javascript">
 	$('.btn-analysis').click(function() {
 		var query = $('.search-query', $(this).parent()).val();

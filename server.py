@@ -122,11 +122,9 @@ def maillist():
     person = cursor.fetchall()
     # cursor.execute("select mail")
 
-    #get 
     usr = []
-    for i in person:
-        print i
-        usr.append(i)
+    map(usr.append,person)
+
     email = usr[0][1]
     name = usr[0][2]
     offset = int(request.query.offset or 0)
@@ -137,15 +135,15 @@ def maillist():
     allsender = []
     allrecipient = []
     for row in record:
-        allsender.append(row[3])
-        allrecipient.append(row[6])
-    allsender = set(allsender)
-    print "123",allsender
-    allrecipient = set(allrecipient)
+        if row[3] not in allsender:
+            allsender.append(row[3])
+        if row[6] not in allrecipient:
+            allrecipient.append(row[6])
+
+    print "s",allsender
     s_record = [[]*255000 for row in range(255000)]
-	print s_
     r_record = [[]*255000 for row in range(255000)]
-    
+
     mail_list = []
     sender = [[]*255000 for row in range(255000)]
     recipient = [[]*255000 for row in range(255000)]
@@ -154,9 +152,8 @@ def maillist():
     subject = []
     mailid = []
     date = []
-    
+
     for x,row in enumerate(record):
-        # print x,row[2]
         if row[0] not in mailid:
             sender[idx].append({
             "id":row[3],
@@ -184,30 +181,31 @@ def maillist():
             "mailid":mailid[idx],
             "subject":subject[idx],
             "date":date[idx],
+            "sid":[s["id"] for s in sender[idx]],
             "sender": ", ".join([
                      " %s <%s>\n" %(s["name"],s["email"])for s in sender[idx]
                     ]
                     ),
+            "rid":[s["id"] for s in recipient[idx]],
             "recipients": ", ".join([
                     " %s <%s>\n" %(s["name"],s["email"])for s in recipient[idx]
                         ])
 
-            })    
+            })
 
     for x,p in enumerate(allsender):
         for row in mail_list:
-            if p in allsender:
+            if p in row["sid"]:
                 s_record[x].append(row)
-                print row
 
     for x,p in enumerate(allrecipient):
         for row in mail_list:
-            if p in allrecipient:
+            if p in row["rid"]:
                 r_record[x].append(row)
-
     print allsender
+    print s_record[0],s_record[1]
     return dict(
-	sender = allsender,
+	    sender = allsender,
         recipient = allrecipient,
         query = usrid,
         name = name+"<"+email+">" ,
@@ -221,27 +219,27 @@ def maillist():
                     date = x["date"]
                 )for x in mail_list
                 ],
-	results2 = [
-            dict(
-                    link = "/enron/mail/%s" % x["mailid"],
-                    subject = x["subject"] ,
-                    # body = x["body"],
-                    sender = x["sender"] ,
-                    recipients = x["recipients"],
-                    date = x["date"]
-                )for x in s_record
-				],
-	results3 = [
-            dict(
-                    link = "/enron/mail/%s" % x["mailid"],
-                    subject = x["subject"] ,
-                    # body = x["body"],
-                    sender = x["sender"] ,
-                    recipients = x["recipients"],
-                    date = x["date"]
-                )for x in r_record
-				]
-            )
+    	results2 = [
+                [dict(
+                        link = "/enron/mail/%s" % x["mailid"],
+                        subject = x["subject"] ,
+                        # body = x["body"],
+                        sender = x["sender"] ,
+                        recipients = x["recipients"],
+                        date = x["date"]
+                    )for x in p]for p in s_record
+    				],
+    	results3 = [
+                [dict(
+                        link = "/enron/mail/%s" % x["mailid"],
+                        subject = x["subject"] ,
+                        # body = x["body"],
+                        sender = x["sender"] ,
+                        recipients = x["recipients"],
+                        date = x["date"]
+                    )for x in p]for x in r_record
+    				]
+                )
 
 @route('/enron/search')
 @view('search')
@@ -294,12 +292,12 @@ def search():
         ]
     )
 
-	
+
 @route('/enron/mail/<messageid:int>')
 @view('mail')
 def showmail(messageid):
     mail = client.mail_detail_search_by_id([messageid]).entity[0]
-	
+
     sender = client.detail_search_by_id(mail.related_entity[0].id).entity
     recipients = client.detail_search_by_id(mail.related_entity[1].id).entity
     return {
@@ -319,7 +317,7 @@ def static(path):
 if len(sys.argv) > 1:
     port = int(sys.argv[1])
 else:
-    port = 8086 
+    port = 8086
 
 print port
-run(server='auto', host='localhost', port=port, reloader=True, debug=True)
+run(server='auto', host='0.0.0.0', port=port, reloader=True, debug=True)

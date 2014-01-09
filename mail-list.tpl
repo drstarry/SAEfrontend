@@ -1,23 +1,23 @@
 <head>
-    <title> mail timeline</title>
-    <link rel="stylesheet" type="text/css" href="/static/bootstrap/css/bootstrap.min.css">
-    <script type="text/javascript" src="/static/bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/static/bootstrap/js/bootstrap-paginator.min.js"></script>
-    <script type="text/javascript" src="/static/js/jquery.min.js"></script>
-	<script type="text/javascript" src="/static/js/jquery.dataTables.js"></script>
-    <!-- more information at: http://www.datatables.net/download/ -->
+<title>mail timeline</title>
+<link rel="stylesheet" type="text/css" href="/static/bootstrap/css/bootstrap.min.css">
+<script type="text/javascript" src="/static/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/static/bootstrap/js/bootstrap-paginator.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery.dataTables.js"></script>
+<!-- more information at: http://www.datatables.net/download/ -->
 <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.9.1.js"></script>
 
 <script type="text/javascript" src="/static/js/webtoolkit.scrollabletable.js"></script>
- <script class="jsbin" src="http://datatables.net/download/build/jquery.dataTables.nightly.js"></script>
+<script class="jsbin" src="http://datatables.net/download/build/jquery.dataTables.nightly.js"></script>
 <script class="jsbin" src="/static/js/FixedHeader.js"></script>
-    <style>
+<style>
 
              @import "/static/css/jquery.dataTables.css";
              @import "/static/css/demo_page.css";
-			 @import "/static/css/demo_table_jui.css";
-			 @import "/static/css/demo_table.css";
-			 @import "/static/css/jquery.dataTables_themeroller.css";
+             @import "/static/css/demo_table_jui.css";
+             @import "/static/css/demo_table.css";
+             @import "/static/css/jquery.dataTables_themeroller.css";
              @import "/static/css/jquery-ui-1.8.4.custom.css";
             .dataTables_info
             { padding-top: 0; }
@@ -47,164 +47,81 @@
 </head>
 
 <form class="search form-search" method="get">
-    <fieldset>
-
-
-    </fieldset>
+  <fieldset></fieldset>
 </form>
-
 
 <div class="row-fluid">
 
- <!-- Table -->
+  <!-- Table -->
   <div class="panel panel-default">
-  
-  <!-- Default panel contents -->
-  <div class="panel-heading"><h2><legend><span class="glyphicon glyphicon-envelope"></span> Mail timeline of {{name}}</legend></div>
-  Sorted by
- 
- <ul class="nav nav-tabs">
-  <li><a href="#Date" data-toggle="tab">Date</a></li>
-  <li><a href="#Senders" data-toggle="tab">Senders</a></li>
-  <li><a href="#Recipients" data-toggle="tab">Recipients</a></li>
-</ul>
 
-<!-- Tab panes -->
-<div class="tab-content">
-  <div class="tab-pane active" id="Date">
-    %if len(results1)!= 0:
-   <table cellpadding="0" cellspacing="0" border="0" class="display" id="t1">
-                       <thead>
-                     <tr class="active" >
-                       
-                        <th>Date</th>
-                        <th>Subject</th>
-                        <th>From</th>
-                        <th>To</th>
-                     </tr>
-                    </thead>
+    <!-- Default panel contents -->
+    <div class="panel-heading">
+      <h2>
+        <legend>
+          <span class="glyphicon glyphicon-envelope"></span>
+          Mail timeline of {{name}}
+        </legend>
+      </div>
+      Sorted by
+      <ul class="nav nav-tabs">
+        <li>
+          <a href="#Date" data-toggle="tab">Date</a>
+        </li>
+        <li>
+          <a href="#Senders" data-toggle="tab">Senders</a>
+        </li>
+        <li>
+          <a href="#Recipients" data-toggle="tab">Recipients</a>
+        </li>
+      </ul>
 
-                    <tbody>
-                        %for x,item in enumerate(results1):
-                        <tr>
-                           
-                            <td>{{item['date']}}</td>
-                            <td><a href="{{item['link']}}">{{item['subject']}}</a></td>
-                            <td>{{item['sender']}}</td>
-                            <td>{{item['recipients']}}</td>
-                        </tr>
-                        %end
-                    </tbody>
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div class="tab-pane active" id="Date">
+          %if len(results1)!= 0:
+          <table cellpadding="0" cellspacing="0" border="0" class="display" id="example">
+            <thead>
+              <tr class="active" >
 
-    </table>
-    %end	
+                <th>Date</th>
+                <th>Subject</th>
+                <th>From</th>
+                <th>To</th>
+              </tr>
+            </thead>
 
-  </div>
-  
-  <div class="tab-pane" id="Senders">
-  <div class="panel-group"  id="accordion1">
-    %for x,p in enumerate(results2):
-	<div class="panel panel-default">
-        <div class="panel-heading">
-            <div class="panel-title">
-                <a href="#panel{{x}}" class="panel-toggle" data-toggle="collapse" data-parent="#accordion1">
-                    From:  {{sender[x]}}
-                </a>
-            </div>
+            <tbody>
+              %for x,item in enumerate(results1):
+              <tr>
+
+                <td>{{item['date']}}</td>
+                <td>
+                  <a href="{{item['link']}}">{{item['subject']}}</a>
+                </td>
+                <td>{{item['sender']}}</td>
+                <td>{{item['recipients']}}</td>
+              </tr>
+              %end
+            </tbody>
+
+          </table>
+          %end
         </div>
-        <div id="panel{{x}}" class="panel-collapse collapse in">
-            <div class="panel-body">
-               
-   <table >
-                       <thead>
-                     <tr class="active" >
-                       
-                        <th>Date</th>
-                        <th>Subject</th>
-                       
-                        <th>To</th>
-                     </tr>
-                    </thead>
 
-                    <tbody>
-					%for item in p:
-                        <tr>
-                           
-                            <td>{{item['date']}}</td>
-                            <td><a href="{{p['link']}}">{{item['subject']}}</a></td>
-                            
-                            <td>{{item['recipients']}}</td>
-                        </tr>
-                    %end   
-                    </tbody>
+        <div class="tab-pane" id="Senders">
 
-    </table>
-   
-            </div>
         </div>
+
+        <div class="tab-pane" id="Recipients">
+
+        </div>
+
+      </div>
+
     </div>
-	%end
-	</div>
-	
+
   </div>
-  
-  <div class="tab-pane" id="Recipients">
-    <div class="panel-group"  id="accordion2">
-    %for x,p in enumerate(results3):
-	<div class="panel panel-default">
-        <div class="panel-heading">
-            <div class="panel-title">
-                <a href="#panel{{x}}" class="panel-toggle" data-toggle="collapse" data-parent="#accordion2">
-                    To:  {{recipient[x]}}
-                </a>
-            </div>
-        </div>
-        <div id="panel{{x}}" class="panel-collapse collapse in">
-            <div class="panel-body">
-                
-   <table >
-                       <thead>
-                     <tr class="active" >
-                       
-                        <th>Date</th>
-                        <th>Subject</th>
-                        <th>From</th>
-                        
-                     </tr>
-                    </thead>
-					
-                    <tbody>
-                    %for item in p:   
-                        <tr>
-                           
-                            <td>{{item['date']}}</td>
-                            <td><a href="{{item['link']}}">{{item['subject']}}</a></td>
-                            <td>{{item['sender']}}</td>
-                           
-                        </tr>
-                    %end  
-                    </tbody>
-					
-    </table>
-    
-            </div>
-        </div>
-    </div>
-	%end
-	</div>
-  </div>
-
- </div>
-
-
-
-
-   </div>
-
-</div>
-
-
-
 
 </div>
 
@@ -214,40 +131,18 @@
         window.location = "topictrends?q=" + encodeURIComponent(query);
         return false;
     });
+
     $(document).ready(function() {
         $('.result-item .item-img img').one('error', function() {
             $(this).attr('src', 'http://static02.linkedin.com/scds/common/u/img/icon/icon_no_company_logo_100x60.png');
         });
     });
+
     $(document).ready(function(){
-    $('#t1').dataTable(
-	
-         );
-	});
-	 $(document).ready(function(){
-    $('#t2').dataTable(
-	
-         );
-	});
-	 $(document).ready(function(){
-    $('#t3').dataTable(
-	
-         );
-	});
-	$('.collapse').collapse({
-	toggle: true,parent:'#accordion1'
-	})
-	$('.panel-heading').on('click', function () {
-		var self = this;
-		$(self).nextAll().eq(0).collapse("show");
-	})
-	$('.collapse').collapse({
-	toggle: true,parent:'#accordion2'
-	})
-	$('.panel-heading').on('click', function () {
-		var self = this;
-		$(self).nextAll().eq(0).collapse("show");
-	})
+      $('#example').dataTable(
+           );
+  	});
+
 </script>
 
 %rebase layout
