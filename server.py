@@ -12,11 +12,11 @@ import MySQLdb
 import google.protobuf
 
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
-#out
+# out
 # client = SAEClient("tcp://166.111.134.53:40112")
 # db=MySQLdb.connect(host="166.111.134.53",user="root",
 #                   passwd="keg2012",db="enron")
-in
+# in
 client = SAEClient("tcp://10.1.1.111:40112")
 db=MySQLdb.connect(host="10.1.1.110",user="root",
                    passwd="keg2012",db="enron")
